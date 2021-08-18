@@ -432,7 +432,7 @@ function checkBgImgCookie () {
     $('#banner_wave_2').addClass('banner_wave_hide_fit_skin')
   }
   if (bgurl != '') {
-    if (bgurl == 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/sakura.png' || bgurl == 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/plaid.jpg' || bgurl == 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/star.png' || bgurl == 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/point.png' || bgurl == 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/little-monster.png') {
+    if (bgurl == 'https://img0.baidu.com/it/u=2859547892,2641275188&fm=26&fmt=auto&gp=0.jpg' || bgurl == 'https://img2.baidu.com/it/u=3247184767,3886061798&fm=26&fmt=auto&gp=0.jpg' || bgurl == 'https://img1.baidu.com/it/u=2516915362,1493178723&fm=26&fmt=auto&gp=0.jpg' || bgurl == 'https://img0.baidu.com/it/u=1086698778,1149126027&fm=26&fmt=auto&gp=0.jpg' || bgurl == 'https://img1.baidu.com/it/u=3160157458,2696985103&fm=26&fmt=auto&gp=0.jpg') {
       mashiro_global.variables.skinSecter = true
       mashiro_global.variables.isNight = false
       $('#night-mode-cover').css('visibility', 'hidden')
@@ -504,7 +504,7 @@ $(document).ready(function () {
   changeBG('#pixiv-bg', 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/star.png')
   changeBG('#KAdots-bg', 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/point.png')
   changeBG('#totem-bg', 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/little-monster.png')
-  changeBGnoTrans('#bing-bg', 'https://www.yremp.live/images/2019/12/20/76412022_p0b4b8f.jpg')
+  changeBGnoTrans('#bing-bg', 'https://img2.baidu.com/it/u=4164702824,1576307272&fm=15&fmt=auto&gp=0.jpg')
   $('.skin-menu #white-bg').click(function () {
     mashiro_global.variables.skinSecter = false
     mashiro_global.variables.isNight = false
@@ -522,7 +522,7 @@ $(document).ready(function () {
   $('.skin-menu #dark-bg').click(function () {
     mashiro_global.variables.skinSecter = true
     mashiro_global.variables.isNight = true
-    $('body').css('background-image', 'url(https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/background_aqua_dark2.jpg)')
+    $('body').css('background-image', 'url(https://img1.baidu.com/it/u=3100357761,1787519105&fm=26&fmt=auto&gp=0.jpg)')
     // $('.blank').css('background-color', 'rgba(255,255,255,.8)')
 	$('.blank').css('background-color', 'none')
     $('#night-mode-cover').css('visibility', 'visible')
