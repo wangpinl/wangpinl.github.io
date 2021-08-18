@@ -1,13 +1,10 @@
----
-layout: false
----
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">微笑的个人主页</title>
+  <title itemprop="name">Dubbo3 | 微笑的个人主页</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -51,7 +48,7 @@ layout: false
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = ["https://img0.baidu.com/it/u=4252466585,3954983564&fm=26&fmt=auto&gp=0.jpg"];
+  var bg = "https://www.yremp.live/images/2020/04/22/79344899_p091551.jpg".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -263,454 +260,321 @@ layout: false
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">Welcome to xiaowu&#39;s blog</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/08/25/QQ20190825181558b01d9.jpg);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825181558b01d9.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Dubbo3</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=100">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">微笑</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-25<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <div class="top-feature-row" style="display:none">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-</div>
+
+<div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true">
-      </i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Dubbo03"><a href="#Dubbo03" class="headerlink" title="Dubbo03"></a>Dubbo03</h1><h2 id="restful风格的API"><a href="#restful风格的API" class="headerlink" title="restful风格的API"></a>restful风格的API</h2><p>Representational State Transfer，资源表现层状态转换</p>
+<h3 id="根路径"><a href="#根路径" class="headerlink" title="根路径"></a>根路径</h3><p>mashibing.com</p>
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><p>http://</p>
+<h3 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h3><p>v1</p>
+<p>可以直接写在URL上，或者写在header中传递“Accept-Version: v2”</p>
+<pre><code>@RequestMapping(headers = &quot;Accept-Version=v2&quot;,value = &quot;models&quot;,method = RequestMethod.GET)
+</code></pre><h3 id="用HTTP协议里的动词来实现资源的增删改查"><a href="#用HTTP协议里的动词来实现资源的增删改查" class="headerlink" title="用HTTP协议里的动词来实现资源的增删改查"></a>用HTTP协议里的动词来实现资源的增删改查</h3><pre><code>GET 用来获取资源，
+POST 用来新建资源（也可以用于更新资源）。
+DELETE 用来删除资源。 
+UPDATE http://api.chesxs.com/v1/fence 更新围栏信息 
+</code></pre><h3 id="用例"><a href="#用例" class="headerlink" title="用例"></a>用例</h3><h4 id="单个资源"><a href="#单个资源" class="headerlink" title="单个资源"></a>单个资源</h4><p><a href="http://mashibing.com/api/v1/Users/1" target="_blank" rel="noopener">http://mashibing.com/api/v1/Users/1</a>   使用Get方法获取id是1的用户数据</p>
+<pre><code>正确：GET /model/models/{id}        #获取单个资源
+正确：POST /model/models            #创建单个资源
+正确：PUT /model/models/{id}        #更新单个资源
+正确：DELETE /model/models/{id}   #删除单个资源
+正确：PATCH /model/models/{id}   #更新单个资源（只传差异）
+正确：GET /model/configRuleFile    #获取单个资源（如果仅有一个值时，应采用单数方式）
+</code></pre><p>返回结果：</p>
+<p>如果指定的资源并不存在，那么应该返回404 Not Found状态，否则应该返回200 OK状态码</p>
+<h4 id="资源集合"><a href="#资源集合" class="headerlink" title="资源集合"></a>资源集合</h4><p>对于资源集合，支持以下URL</p>
+<pre><code>正确： GET /model/models                             #获取资源列表
+正确： GET /model/models?ids={ids}             #批量获取资源列表
+正确： DELETE /model/models?ids={ids}       #批量删除资源列表
+返回结果：
+</code></pre><p>如果列表为空，则应该空数组</p>
+<h4 id="响应结果"><a href="#响应结果" class="headerlink" title="响应结果"></a>响应结果</h4><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">响应状态码</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">成功</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">调用成功</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">201</td>
+<td style="text-align:center">创建成功</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">204</td>
+<td style="text-align:center">执行成功，但无返回值</td>
+</tr>
+<tr>
+<td style="text-align:center">失败</td>
+<td style="text-align:center">400</td>
+<td style="text-align:center">无效请求</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">401</td>
+<td style="text-align:center">没有登录</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">403</td>
+<td style="text-align:center">没有权限</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">404</td>
+<td style="text-align:center">请求的资源不存在</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">服务内部错误</td>
+</tr>
+</tbody>
+</table>
+<h2 id="swagger（丝袜哥）"><a href="#swagger（丝袜哥）" class="headerlink" title="swagger（丝袜哥）"></a>swagger（丝袜哥）</h2><p>Swagger是一个简单但功能强大的API表达工具。它具有地球上最大的API工具生态系统，数以千计的开发人员，使用几乎所有的现代编程语言，都在支持和使用Swagger。使用Swagger生成API，我们可以得到交互式文档，自动生成代码的SDK以及API的发现特性等。</p>
+<h3 id="OpenAPI"><a href="#OpenAPI" class="headerlink" title="OpenAPI"></a>OpenAPI</h3><p>OpenAPI规范是Linux基金会的一个项目，试图通过定义一种用来描述API格式或API定义的语言，来规范RESTful服务开发过程。OpenAPI规范帮助我们描述一个API的基本信息</p>
+<p>比如：</p>
+<ul>
+<li>有关该API的一般性描述</li>
+<li>可用路径（/资源）</li>
+<li>在每个路径上的可用操作（获取/提交…）</li>
+<li>每个操作的输入/输出格式</li>
+</ul>
+<p>根据OpenAPI规范编写的二进制文本文件，能够像代码一样用任何VCS工具管理起来一旦编写完成，API文档可以作为：</p>
+<ul>
+<li>需求和系统特性描述的根据</li>
+<li>前后台查询、讨论、自测的基础</li>
+<li>部分或者全部代码自动生成的根据</li>
+<li>其他重要的作用，比如开放平台开发者的手册…</li>
+</ul>
+<h3 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h3><h4 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h4><p><a href="https://swagger.io/" target="_blank" rel="noopener">https://swagger.io/</a></p>
+<h4 id="在线编辑器"><a href="#在线编辑器" class="headerlink" title="在线编辑器"></a>在线编辑器</h4><p><a href="http://editor.swagger.io/" target="_blank" rel="noopener">http://editor.swagger.io/</a></p>
+<h3 id="编写API文档"><a href="#编写API文档" class="headerlink" title="编写API文档"></a>编写API文档</h3><p>我们可以选择使用JSON或者YAML的语言格式来编写API文档</p>
+<pre><code class="yaml">swagger: &#39;2.0&#39;
+info:
+  version: 1.0.0
+  title: mashibing.com api
+  description: 马老师的官网接口
+  contact:
+    name: yiming
+    url: http://mashibing.com
+    email: 888@qqq.com
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+schemes: 
+  - http
+
+host: mashibing.com
+basePath: /api/v1
+
+paths:
+  /user/{userid}:
+    get:
+      summary: 获取一个用户
+      description: 根据id获取用户信息
+      parameters: 
+        - name: userid
+          in: path
+          required: true
+          description: 用户id
+          type: string
+      responses:
+        200:
+          description: OK
+
+  /user:
+    get:
+      summary: 返回List 包含所有用户
+      description: 返回List 包含所有用户
+      parameters:
+          - name: pageSize
+            in: query
+            description: 每页显示多少
+            type: integer
+          - name: pageNum
+            in: query
+            description: 当前第几页
+            type: integer
+
+      responses:
+        200:
+          description: OK
+
+          schema:
+            type: array
+            items: 
+              required:
+                - username
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string    
+</code></pre>
+<h3 id="整合SpringBoot"><a href="#整合SpringBoot" class="headerlink" title="整合SpringBoot"></a>整合SpringBoot</h3><h4 id="官方依赖"><a href="#官方依赖" class="headerlink" title="官方依赖"></a>官方依赖</h4><pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+    &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;
+    &lt;version&gt;2.2.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+    &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;
+    &lt;version&gt;2.2.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.codehaus.jackson&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-core-asl&lt;/artifactId&gt;
+    &lt;version&gt;1.9.13&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h4 id="第三方"><a href="#第三方" class="headerlink" title="第三方"></a>第三方</h4><p><a href="https://github.com/SpringForAll/spring-boot-starter-swagger" target="_blank" rel="noopener">https://github.com/SpringForAll/spring-boot-starter-swagger</a></p>
+<h4 id="依赖引入"><a href="#依赖引入" class="headerlink" title="依赖引入"></a>依赖引入</h4><pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.spring4all&lt;/groupId&gt;
+    &lt;artifactId&gt;swagger-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;1.9.0.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h4 id="启用注解"><a href="#启用注解" class="headerlink" title="启用注解"></a>启用注解</h4><p><a href="http://localhost:803//v2/api-docs" target="_blank" rel="noopener">http://localhost:803//v2/api-docs</a></p>
+<p><a href="http://localhost:8080/swagger-ui.html" target="_blank" rel="noopener">http://localhost:8080/swagger-ui.html</a></p>
+<h4 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h4><pre><code>swagger.docket.controller.title=group-controller
+swagger.docket.controller.base-package=com.mashibing.springboot.controller
+swagger.docket.restcontroller.title=group-restcontroller
+swagger.docket.restcontroller.base-package=com.mashibing.springboot.controller.rest
+</code></pre><h4 id="实体模型"><a href="#实体模型" class="headerlink" title="实体模型"></a>实体模型</h4><pre><code class="java">@ApiModelProperty(value = &quot;权限id&quot;, name = &quot;id&quot;,dataType = &quot;integer&quot;,required = true,example = &quot;1&quot;)
+private Integer id;
+</code></pre>
+<h4 id="接口方法"><a href="#接口方法" class="headerlink" title="接口方法"></a>接口方法</h4><pre><code class="java">@ApiOperation(value = &quot;获取所有权限&quot;)
+@RequestMapping(value = &quot;list&quot;,method = RequestMethod.GET)
+public List&lt;Permission&gt; list() {
+    return permissionSrv.findAll();
+}
+
+@ApiOperation(value = &quot;添加权限&quot;)
+@RequestMapping(&quot;update&quot;)
+public RespStat update(@ApiParam(name=&quot;permission&quot;,required = true, example = &quot;{json}&quot;,value = &quot;权限对象&quot;) @RequestBody Permission permission) {
+    System.out.println(&quot;permission:&quot; + ToStringBuilder.reflectionToString(permission));
+    permissionSrv.update(permission);
+    return RespStat.build(200);
+}
+</code></pre>
+<p>接口类描述</p>
+<pre><code>@Api(value = &quot;用户权限管理&quot;,tags={&quot;用户操作接口&quot;})
+</code></pre>
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/28/flink流式计算学习02/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/-39846256f1b679e9599ac.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-28 12:04</div>
-      <a href="/2020/04/28/flink流式计算学习02/" class="post-title">
-        <h3>flink流式计算学习02</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
         
-            <a href="/tags/flink/">flink<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre half previous">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算算子学习</p>
-        <div class="post-bottom">
-          <a href="/2020/04/28/flink流式计算学习02/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/22/flink流式计算学习01/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/2461257211944c4dada90.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-22 15:04</div>
-      <a href="/2020/04/22/flink流式计算学习01/" class="post-title">
-        <h3>flink流式计算学习01</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/08/25/Dubbo4/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ2019082518170237bfc.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                Dubbo4</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/flink/">flink<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算概念及环境搭建</p>
-        <div class="post-bottom">
-          <a href="/2020/04/22/flink流式计算学习01/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/kafka/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/739c5e1e656724e8211f5.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 15:03</div>
-      <a href="/2020/03/24/kafka/" class="post-title">
-        <h3>kafka</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
         
-            <a href="/tags/kafka/">kafka<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre half next">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>kafka简明教程</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/kafka/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/docker/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/7783c569da16e2baa2363.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 14:03</div>
-      <a href="/2020/03/24/docker/" class="post-title">
-        <h3>docker</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/08/25/Dubbo2/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825181542cbc29.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Dubbo2</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/docker/">docker<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>docker云主机搭建练习</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/docker/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2019/12/20/Mysql查询优化/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2017/10/05/7fb6f4f53141155bb7d2437a93535269.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-20 16:12</div>
-      <a href="/2019/12/20/Mysql查询优化/" class="post-title">
-        <h3>Mysql查询优化</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql查询优化</p>
-        <div class="post-bottom">
-          <a href="/2019/12/20/Mysql查询优化/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Mysql索引总结/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/60a50cf572dc00fe92059431a756bd65.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 16:12</div>
-      <a href="/2019/12/19/Mysql索引总结/" class="post-title">
-        <h3>Mysql索引总结</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql索引知识点</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Mysql索引总结/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Http协议学习/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/130ef0a857389caae79d71ad7b3e91ce.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 11:12</div>
-      <a href="/2019/12/19/Http协议学习/" class="post-title">
-        <h3>Http协议学习</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>http通讯协议简介</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Http协议学习/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/11/12/JDBC简明教程/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/11/12/QQ201911121757279340b.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-11-12 17:11</div>
-      <a href="/2019/11/12/JDBC简明教程/" class="post-title">
-        <h3>JDBC简明教程</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>JDBC简明教程</p>
-        <div class="post-bottom">
-          <a href="/2019/11/12/JDBC简明教程/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识04/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171703253a291.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识04/" class="post-title">
-        <h3>Scala初识04</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>函数式编程太坑了</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识04/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识03/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171702360e62f.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识03/" class="post-title">
-        <h3>Scala初识03</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>似乎发现了些技巧</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识03/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-right"></i></a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/2/" class>Previous</a></div>
-  
-</div>
+
 
     </div>    
     <div class="ins-search">

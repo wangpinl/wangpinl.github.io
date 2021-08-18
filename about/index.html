@@ -1,13 +1,10 @@
----
-layout: false
----
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">微笑的个人主页</title>
+  <title itemprop="name">about | 微笑的个人主页</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -51,7 +48,7 @@ layout: false
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = ["https://img0.baidu.com/it/u=4252466585,3954983564&fm=26&fmt=auto&gp=0.jpg"];
+  var bg = "https://www.yremp.live/images/2020/04/22/79344899_p091551.jpg".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -263,454 +260,197 @@ layout: false
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">Welcome to xiaowu&#39;s blog</div>
-  </div>
-  <div class="top-feature-row" style="display:none">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
+        <div class="pattern-center-blank"></div>
   
-</div>
-  <div id="primary" class="content-area">
-    <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true">
-      </i>
-      Discovery</h1>
+    <div class="pattern-center ">
+      <div class="pattern-attachment-img">
+        <img src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/banner/about.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+      </div>
+      <header class="pattern-header ">
+        <h1 class="entry-title">
+        关于</h1>
+      </header>
+    </div>
+  
+  <div id="content" class="site-content">
+    <article class="post-item post-301 page type-page status-publish has-post-thumbnail hentry">
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="moe-mashiro" style="text-align:center; font-size: 50px; margin-bottom: 20px;">[さくら荘のhojun]</div>
+<div id="hello-mashiro" class="popcontainer" style="min-height: 300px; padding: 2px 6px 4px; background-color: rgba(242, 242, 242, 0.5); border-radius: 10px;">
+  <center>
+  <p>
+  </p>
+  <h4>
+  与&nbsp;<ruby>
+  Mashiro&nbsp;<rp>
+  （</rp>
+  <rt>
+  真（ま）白（しろ）</rt>
+  <rp>
+  ）</rp>
+  </ruby>
+  对话中...</h4>
+  <p>
+  </p>
+  </center>
+  <bot-ui>
+</bot-ui></div>
+<script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+<script src="https://unpkg.com/botui/build/botui.min.js"></script>
+<script>
+function bot_ui_ini() {
+    var botui = new BotUI("hello-mashiro");
+    botui.message.add({
+        delay: 800,
+        content: "Hi, there111👋"
+    }).then(function () {
+        botui.message.add({
+            delay: 1100,
+            content: "这里是 Mashiro"
+        }).then(function () {
+            botui.message.add({
+                delay: 1100,
+                content: "一个可爱的蓝孩子~"
+            }).then(function () {
+                botui.action.button({
+                    delay: 1600,
+                    action: [{
+                        text: "然后呢？ 😃",
+                        value: "sure"
+                    }, {
+                        text: "少废话！ 🙄",
+                        value: "skip"
+                    }]
+                }).then(function (a) {
+                    "sure" == a.value && sure();
+                    "skip" == a.value && end()
+                })
+            })
+        })
+    });
+    var sure = function () {
+            botui.message.add({
+                delay: 600,
+                content: "😘"
+            }).then(function () {
+                secondpart()
+            })
+        },
+        end = function () {
+            botui.message.add({
+                delay: 600,
+                content: "![...](https://view.moezx.cc/images/2018/05/06/a1c4cd0452528b572af37952489372b6.md.jpg)"
+            })
+        },
+        secondpart = function () {
+            botui.message.add({
+                delay: 1500,
+                content: "目前就读于上海财经大学"
+            }).then(function () {
+                botui.message.add({
+                    delay: 1500,
+                    content: "向往技术却误入商科，但后来喜欢上了经济学…"
+                }).then(function () {
+                    botui.message.add({
+                        delay: 1200,
+                        content: "因为数据分析也需要Coder嘛"
+                    }).then(function () {
+                        botui.message.add({
+                            delay: 1500,
+                            content: "主攻 R 语言和 Python，略懂 STATA，偶尔也折腾 HTML/CSS/JavaScript/PHP"
+                        }).then(function () {
+                            botui.message.add({
+                                delay: 1500,
+                                content: "研究的方向，是经济/金融方向的数据分析（data science）以及机器学习（machine learning）"
+                            }).then(function () {
+                                botui.message.add({
+                                    delay: 1800,
+                                    content: "喜欢画画，希望有一天能够被称为画师"
+                                }).then(function () {
+                                    botui.action.button({
+                                        delay: 1100,
+                                        action: [{
+                                            text: "为什么叫Mashiro呢？ 🤔",
+                                            value: "why-mashiro"
+                                        }]
+                                    }).then(function (a) {
+                                        thirdpart()
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        },
+        thirdpart = function () {
+            botui.message.add({
+                delay: 1E3,
+                content: "Mashiro以及站名都来自一部动画，因为和主角有一样的爱好~ 如果有兴趣可以找找首页上的视频~"
+            }).then(function () {
+                botui.action.button({
+                    delay: 1500,
+                    action: [{
+                        text: "为什么是白猫呢？ 🤔",
+                        value: "why-cat"
+                    }]
+                }).then(function (a) {
+                    fourthpart()
+                })
+            })
+        },
+        fourthpart = function () {
+            botui.message.add({
+                delay: 1E3,
+                content: "因为对GitHub有种执念… "
+            }).then(function () {
+                botui.message.add({
+                    delay: 1100,
+                    content: "而且我真的是猫控！"
+                }).then(function () {
+                    botui.action.button({
+                        delay: 1500,
+                        action: [{
+                            text: "域名有什么含意吗？(ง •_•)ง",
+                            value: "why-domain"
+                        }]
+                    }).then(function (a) {
+                        fifthpart()
+                    })
+                })
+            })
+        },
+        fifthpart = function () {
+            botui.message.add({
+                delay: 1E3,
+                content: "emmmm，看备案信息你就知道了=.= 本来想要zheng.xin的，但50万真买不起。。"
+            }).then(function () {
+                botui.message.add({
+                    delay: 1600,
+                    content: "那么，仔细看看我的博客吧？ ^_^"
+                })
+            })
+        } 
+}
+bot_ui_ini()
+</script>
 
-  <div class="post-thumb">
-    <a href="/2020/04/28/flink流式计算学习02/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/-39846256f1b679e9599ac.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-28 12:04</div>
-      <a href="/2020/04/28/flink流式计算学习02/" class="post-title">
-        <h3>flink流式计算学习02</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/flink/">flink<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算算子学习</p>
-        <div class="post-bottom">
-          <a href="/2020/04/28/flink流式计算学习02/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
+      <!-- .entry-content -->
+      
+      <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+      <footer class="post-footer">
+        <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+        <div class="post-tags">
         </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/22/flink流式计算学习01/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/2461257211944c4dada90.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-22 15:04</div>
-      <a href="/2020/04/22/flink流式计算学习01/" class="post-title">
-        <h3>flink流式计算学习01</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/flink/">flink<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算概念及环境搭建</p>
-        <div class="post-bottom">
-          <a href="/2020/04/22/flink流式计算学习01/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
+        <div class="post-share">
+          <div class="social-share sharehidden share-component"></div>
+          <i class="iconfont show-share icon-forward"></i>
         </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/kafka/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/739c5e1e656724e8211f5.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 15:03</div>
-      <a href="/2020/03/24/kafka/" class="post-title">
-        <h3>kafka</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/kafka/">kafka<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>kafka简明教程</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/kafka/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/docker/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/7783c569da16e2baa2363.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 14:03</div>
-      <a href="/2020/03/24/docker/" class="post-title">
-        <h3>docker</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/docker/">docker<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>docker云主机搭建练习</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/docker/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/20/Mysql查询优化/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2017/10/05/7fb6f4f53141155bb7d2437a93535269.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-20 16:12</div>
-      <a href="/2019/12/20/Mysql查询优化/" class="post-title">
-        <h3>Mysql查询优化</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql查询优化</p>
-        <div class="post-bottom">
-          <a href="/2019/12/20/Mysql查询优化/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Mysql索引总结/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/60a50cf572dc00fe92059431a756bd65.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 16:12</div>
-      <a href="/2019/12/19/Mysql索引总结/" class="post-title">
-        <h3>Mysql索引总结</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql索引知识点</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Mysql索引总结/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Http协议学习/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/130ef0a857389caae79d71ad7b3e91ce.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 11:12</div>
-      <a href="/2019/12/19/Http协议学习/" class="post-title">
-        <h3>Http协议学习</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>http通讯协议简介</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Http协议学习/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/11/12/JDBC简明教程/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/11/12/QQ201911121757279340b.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-11-12 17:11</div>
-      <a href="/2019/11/12/JDBC简明教程/" class="post-title">
-        <h3>JDBC简明教程</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>JDBC简明教程</p>
-        <div class="post-bottom">
-          <a href="/2019/11/12/JDBC简明教程/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识04/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171703253a291.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识04/" class="post-title">
-        <h3>Scala初识04</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>函数式编程太坑了</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识04/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识03/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171702360e62f.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识03/" class="post-title">
-        <h3>Scala初识03</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>似乎发现了些技巧</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识03/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-
-
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-right"></i></a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/2/" class>Previous</a></div>
-  
-</div>
+      </footer><!-- .entry-footer -->
+    </article>
+      <!-- #post-## -->
+      
+  </div><!-- #primary -->
 
     </div>    
     <div class="ins-search">

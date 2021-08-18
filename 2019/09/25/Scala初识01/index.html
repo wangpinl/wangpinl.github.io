@@ -1,13 +1,10 @@
----
-layout: false
----
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">微笑的个人主页</title>
+  <title itemprop="name">Scala初识01 | 微笑的个人主页</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -51,7 +48,7 @@ layout: false
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = ["https://img0.baidu.com/it/u=4252466585,3954983564&fm=26&fmt=auto&gp=0.jpg"];
+  var bg = "https://www.yremp.live/images/2020/04/22/79344899_p091551.jpg".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -263,454 +260,220 @@ layout: false
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">Welcome to xiaowu&#39;s blog</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/09/25/QQ20190925182417431b8.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/25/QQ20190925182417431b8.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Scala初识01</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=100">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">微笑</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-9-25<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <div class="top-feature-row" style="display:none">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-</div>
+
+<div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true">
-      </i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Scala初识"><a href="#Scala初识" class="headerlink" title="Scala初识"></a>Scala初识</h1><h2 id="课前预备基础知识"><a href="#课前预备基础知识" class="headerlink" title="课前预备基础知识"></a>课前预备基础知识</h2><p>编程语言分为编译型和解释型两种</p>
+<h3 id="编译型语言"><a href="#编译型语言" class="headerlink" title="编译型语言"></a>编译型语言</h3><p>（1）只须编译一次就可以把源代码编译成机器语言，后面的执行无须重新编译，直接使用之前的编译结果就可以；因此其执行的效率比较高；<br>（2）编译性语言代表：C、C++、Pascal/Object Pascal（Delphi）；<br>（3）程序执行效率比较高，但比较依赖编译器，因此跨平台性差一些；</p>
+<h3 id="解释型语言"><a href="#解释型语言" class="headerlink" title="解释型语言"></a>解释型语言</h3><p>（1）源代码不能直接翻译成机器语言，而是先翻译成中间代码，再由解释器对中间代码进行解释运行，源代码—&gt;中间代码—&gt;机器语言</p>
+<p>（2）程序不需要编译，程序在运行时才翻译成机器语言，每执行一次都要翻译一次；<br>（3）解释性语言代表：Python、JavaScript、Shell、Ruby、MATLAB等；<br>（4）运行效率一般相对比较低，依赖解释器，跨平台性好；</p>
+<h3 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h3><p>（1）<strong>一般</strong>，编译性语言的运行效率比解释性语言更<strong>高</strong>；但是不能一概而论，部分解释性语言的解释器通过在<strong>运行时动态优化</strong>代码，甚至能使解释性语言的性能超过编译性语言；</p>
+<p>（2）编译性语言的跨平台特性比解释性语言<strong>差</strong>一些；</p>
+<h3 id="java呢"><a href="#java呢" class="headerlink" title="java呢?"></a>java呢?</h3><p>java属于编译型+解释型语言</p>
+<blockquote>
+<p>java文件先编译成与平台无关的.class的字节码文件，然后.class的字节码文件既可以在Windows平台上的java虚拟机（JVM）上进行解释运行，也可以在Linux平台上的JVM上解释运行；而JVM的翻译过程时解释性的，JVM从.class的字节码文件中读出一条指令，翻译一条指令，然后执行一条指令，这个过程就称为java的解释执行；</p>
+</blockquote>
+<h3 id="语言的类型"><a href="#语言的类型" class="headerlink" title="语言的类型"></a>语言的类型</h3><p><strong>强类型语言</strong></p>
+<p>强类型语言也称为强类型定义语言，是一种总是强制类型定义的语言，要求变量的使用要严格符合定义，所有变量都必须先定义后使用。</p>
+<p>Java、.Net和C++等一些语言都是强制类型定义的，也就是说，一旦一个变量被指定了某个数据类型，如果不经过强制转换，那么它就永远是这个数据类型了。</p>
+<p>例如你有一个整数，如果不显式地进行转换，你不能将其视为一个字符串。</p>
+<p><strong>弱类型语言</strong></p>
+<p>弱类型语言也称为弱类型定义语言，与强类型定义相反。像VB，PHP等一些语言就属于弱类型语言。</p>
+<p>简单理解就是一种变量类型可以被忽略的语言。比如VBScript是弱类型定义的，在VBScript中就可以将字符串’12’和整数3进行连接得到字符串’123’，然后可以把它看成整数123，而不用显示转换。但其实他们的类型没有改变，VB只是在判断出一个表达式含有不同类型的变量之后，自动在这些变量前加了一个clong()或(int)()这样的转换函数而已。能做到这一点其实是归功于VB的编译器的智能化而已，这并非是VB语言本身的长处或短处。</p>
+<p><strong>强类型语言和弱类型语言比较</strong></p>
+<p>强类型语言在速度上可能略逊色于弱类型语言，但是强类型语言带来的严谨性可以有效地帮助避免许多错误。</p>
+<h3 id="语言的模型"><a href="#语言的模型" class="headerlink" title="语言的模型"></a>语言的模型</h3><p>面向过程:基本类型+指针</p>
+<p>面向对象:基本类型+对象类型</p>
+<p>面向函数:基本类型+对象类型+函数</p>
+<p>SCALA:面向对象的函数式编程语言</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p><a href="https://www.scala-lang.org" target="_blank" rel="noopener">scala官网</a></p>
+<p><a href="https://www.oracle.com/technetwork/java/javase/archive-139210.html" target="_blank" rel="noopener">jdk下载地址</a></p>
+<p><a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener">idea官网</a></p>
+<p>idea的欢迎页面,寻找configure-plugins,搜索scala,安装,重启idea</p>
+<p>configure - projet defaults - project structure - global libraries - + - scala sdk - download - 2.11.12 - OK - OK,然后开始等待下载完成</p>
+<p>右键scala sdk 2.11.12 - copy to library - OK</p>
+<p>然后查看libraries里面有没有scala的sdk</p>
+<p><img src="https://www.yremp.live/images/2019/09/25/QQ20190925152704667af.png" alt></p>
+<h3 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h3><p>右键新建一个scala class,kind选择object,对比一下两个版本的helloworld,可以发现scala的语法简洁不少</p>
+<p><img src="https://www.yremp.live/images/2019/09/25/QQ20190925152847fed0a.png" alt></p>
+<p><img src="https://www.yremp.live/images/2019/09/25/QQ20190925152858f8fd3.png" alt></p>
+<h3 id="好玩的知识点"><a href="#好玩的知识点" class="headerlink" title="好玩的知识点"></a>好玩的知识点</h3><p>scala中类名可以和文件名不一样</p>
+<p>object约等于static,是一个单例的对象</p>
+<p>只有在类名构造器中的参数可以设置成var,其他方法函数中的参数都是val类型的,并且不允许设置成var类型</p>
+<p>最后注意一下伴生关系,在同一个文件中定义一个与类名相同的object,那么这个object叫做这个类的半生对象,这个类叫做这个这个对象的伴生类,伴生对象和半生类可以互相访问彼此的私有属性</p>
+<p>附上练习代码</p>
+<pre><code class="scala">package helloworld
+
+/**
+  * @Author: okami mio
+  * @Date: 2019/9/25 10:02
+  */
+object HelloWorldScala01 {
+  def main(args: Array[String]): Unit = {
+    println(&quot;hello world from scala&quot;)
+  }
+}
+
+/**
+  * 可以写多个object和class
+  */
+object Hololive {
+  println(&quot;hololive start!&quot;)
+  //  private val minato: Hololive = new Hololive()
+  //  private val vtber: Hololive = new Hololive(&quot;nakiri&quot;, 10)
+  //  private val vtber: Hololive = new Hololive(&quot;girl&quot;)
+  private val vtber: Hololive = new Hololive(&quot;okami mio&quot;, 11)
+  private val name = &quot;hololive object&quot;
+
+  def main(args: Array[String]): Unit = {
+    println(&quot;hello hololive!&quot;)
+    //    minato.printName()
+    vtber.printName()
+  }
+
+  println(&quot;hololive stop!&quot;)
+}
+
+class Hololive(var sex: String) {
+  var aqua = &quot;minato aqua&quot;
+  var age = 13
+  val newAge = 14
+  var name = &quot;hololive class&quot;
+  sex = &quot;girl&quot;
+  println(&quot;hololive static code start&quot;)
+
+  def this(name: String, age: Int) {
+    // 如果是个性构造,必须调用默认构造
+    this(&quot;boy&quot;);
+    this.aqua = name;
+    this.age = age;
+  }
+
+  def printName(): Unit = {
+    println(s&quot;hello world from $aqua&quot;)
+    println(s&quot;hello world from ${age + age}&quot;)
+    println(s&quot;minato aqua&#39;age$newAge&quot;)
+    //    println(Hololive.minato)
+    println(Hololive.vtber)
+    println(s&quot;this is sex $sex&quot;)
+    println(sex)
+    println(s&quot;this is hololive&#39;name : ${Hololive.name}&quot;)
+    println(Hololive.name)
+    println(name)
+  }
+
+  println(&quot;hololive static code end&quot;)
+}
+</code></pre>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/28/flink流式计算学习02/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/-39846256f1b679e9599ac.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-28 12:04</div>
-      <a href="/2020/04/28/flink流式计算学习02/" class="post-title">
-        <h3>flink流式计算学习02</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
         
-            <a href="/tags/flink/">flink<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre half previous">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算算子学习</p>
-        <div class="post-bottom">
-          <a href="/2020/04/28/flink流式计算学习02/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/22/flink流式计算学习01/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/2461257211944c4dada90.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-22 15:04</div>
-      <a href="/2020/04/22/flink流式计算学习01/" class="post-title">
-        <h3>flink流式计算学习01</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/10/17/Scala初识02/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ2019101717031072036.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                Scala初识02</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/flink/">flink<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算概念及环境搭建</p>
-        <div class="post-bottom">
-          <a href="/2020/04/22/flink流式计算学习01/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/kafka/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/739c5e1e656724e8211f5.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 15:03</div>
-      <a href="/2020/03/24/kafka/" class="post-title">
-        <h3>kafka</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
         
-            <a href="/tags/kafka/">kafka<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre half next">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>kafka简明教程</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/kafka/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/docker/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/7783c569da16e2baa2363.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 14:03</div>
-      <a href="/2020/03/24/docker/" class="post-title">
-        <h3>docker</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/09/19/leecode刷题记录-数据库/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://yremp.live/wp-content/uploads/2019/09/cover-e1567666534201.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                leecode刷题记录-数据库</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/docker/">docker<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>docker云主机搭建练习</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/docker/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2019/12/20/Mysql查询优化/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2017/10/05/7fb6f4f53141155bb7d2437a93535269.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-20 16:12</div>
-      <a href="/2019/12/20/Mysql查询优化/" class="post-title">
-        <h3>Mysql查询优化</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql查询优化</p>
-        <div class="post-bottom">
-          <a href="/2019/12/20/Mysql查询优化/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Mysql索引总结/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/60a50cf572dc00fe92059431a756bd65.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 16:12</div>
-      <a href="/2019/12/19/Mysql索引总结/" class="post-title">
-        <h3>Mysql索引总结</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql索引知识点</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Mysql索引总结/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Http协议学习/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/130ef0a857389caae79d71ad7b3e91ce.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 11:12</div>
-      <a href="/2019/12/19/Http协议学习/" class="post-title">
-        <h3>Http协议学习</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>http通讯协议简介</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Http协议学习/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/11/12/JDBC简明教程/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/11/12/QQ201911121757279340b.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-11-12 17:11</div>
-      <a href="/2019/11/12/JDBC简明教程/" class="post-title">
-        <h3>JDBC简明教程</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>JDBC简明教程</p>
-        <div class="post-bottom">
-          <a href="/2019/11/12/JDBC简明教程/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识04/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171703253a291.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识04/" class="post-title">
-        <h3>Scala初识04</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>函数式编程太坑了</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识04/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识03/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171702360e62f.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识03/" class="post-title">
-        <h3>Scala初识03</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>似乎发现了些技巧</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识03/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-right"></i></a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/2/" class>Previous</a></div>
-  
-</div>
+
 
     </div>    
     <div class="ins-search">

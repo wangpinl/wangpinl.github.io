@@ -1,13 +1,10 @@
----
-layout: false
----
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">微笑的个人主页</title>
+  <title itemprop="name">Redis集群 | 微笑的个人主页</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -51,7 +48,7 @@ layout: false
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = ["https://img0.baidu.com/it/u=4252466585,3954983564&fm=26&fmt=auto&gp=0.jpg"];
+  var bg = "https://www.yremp.live/images/2020/04/22/79344899_p091551.jpg".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -263,454 +260,527 @@ layout: false
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">Welcome to xiaowu&#39;s blog</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/09/17/QQ201909171051590012d.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ201909171051590012d.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Redis集群</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=100">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">微笑</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-9-17<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <div class="top-feature-row" style="display:none">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-</div>
+
+<div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true">
-      </i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Redis集群"><a href="#Redis集群" class="headerlink" title="Redis集群"></a>Redis集群</h1><pre><code>#老版用法
+help slaveof
+
+#新版用法
+help replicaof
+
+replicaof 127.0.0.1 6379
+</code></pre><h2 id="redis集群搭建流程"><a href="#redis集群搭建流程" class="headerlink" title="redis集群搭建流程"></a>redis集群搭建流程</h2><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">aqua</th>
+<th style="text-align:center">mea</th>
+<th style="text-align:center">cierra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">主</td>
+<td style="text-align:center">两个</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">从</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">两个</td>
+<td style="text-align:center">两个</td>
+</tr>
+<tr>
+<td style="text-align:center">哨兵</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+</tr>
+</tbody>
+</table>
+<h2 id="redis单节点容量问题解决方案"><a href="#redis单节点容量问题解决方案" class="headerlink" title="redis单节点容量问题解决方案"></a>redis单节点容量问题解决方案</h2><h3 id="代理模型"><a href="#代理模型" class="headerlink" title="代理模型"></a>代理模型</h3><p>1.哈希取模(弊端:模数固定,也就是说节点的拓展比较麻烦,新增一台机器必须重新取模)</p>
+<p>2.随机(弊端:取回数据的时候比较麻烦,需要遍历)</p>
+<p>3.一致性哈希算法(优点:的确可以分担其他节点的压力,也不会造成全局洗牌.弊端:新增节点会造成一小部分数据无法命中)</p>
+<p>没有取模,client的key和node都需要进行计算,规划成一个哈希环</p>
+<p>导致的问题:</p>
+<p>1.可能造成击穿</p>
+<p>2.增加复杂度,每次取离数据最近的2个物理节点</p>
+<p>哈希环上的节点数尽可能多,可以解决数据倾斜的问题,也就是虚拟节点技术.</p>
+<h3 id="代理方案"><a href="#代理方案" class="headerlink" title="代理方案"></a>代理方案</h3><p>3种代理方式</p>
+<p><a href="https://github.com/twitter/twemproxy" target="_blank" rel="noopener">twemproxy</a></p>
+<p><a href="https://github.com/joyieldInc/predixy" target="_blank" rel="noopener">predixy</a></p>
+<p>cluster</p>
+<p>预分区概念+槽位</p>
+<p>数据分治,聚合操作很难实现,事物,由此产生hash tag,也就是相当于redis分区</p>
+<p>redis集群有16384个哈希槽位</p>
+<h3 id="集群搭建"><a href="#集群搭建" class="headerlink" title="集群搭建"></a>集群搭建</h3><blockquote>
+<p>请同学们学习的时候不要无脑ctrl+c,一定要尝试理解每步的具体含义,如果按照本教程ctrl+c的话,未必能跑的通,因为有一些选项是需要根据你的实际情况更改的,我仅仅是贴出适合我环境的指令,并不提供语法模板.</p>
+</blockquote>
+<h4 id="twemproxy"><a href="#twemproxy" class="headerlink" title="twemproxy"></a>twemproxy</h4><p>准备三台机器,我的分别是aqua,mea,cierra,请不要在意名字</p>
+<pre><code>yum install automake libtool
+autoreconf -fvi
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/16/QQ2019091210224789a5e.png" alt></p>
+<p>发现报错</p>
+<p>原因:autoreconf版本低了,不受支持,去<a href="https://opsx.alibaba.com/mirror" target="_blank" rel="noopener">阿里镜像</a>找更高版本的autoreconf,本人linux版本centos6.6</p>
+<pre><code>cd /etc/yum.repos.d/
+</code></pre><p>外网环境使用这种指令</p>
+<pre><code>wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-6.repo
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/16/QQ20190912102935f7ac6.png" alt></p>
+<p>外网情况请执行如下指令</p>
+<pre><code>yum search autoconf
+yum install autoconf268
+</code></pre><p>我是内网服务器,只能手工操作,不过这都是小事,内网环境可以这样做,去朋友那里找一台外网机器</p>
+<pre><code>yum install yum-plugin-downloadonly
+yum install --downloadonly --downloaddir=. autoconf268
+ll
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/16/QQ20190912133204794b7.png" alt></p>
+<p>可以看到rpm包已经下载好了,我们便可以把这个包拷到内网环境上</p>
+<pre><code>rpm -ivh autoconf-2.63-5.1.el6.noarch.rpm
+rpm -ivh autoconf268-2.68-2.el6.noarch.rpm
+</code></pre><p>可以看到已经有autoconf268的命令了,代表成功!撒花庆祝</p>
+<pre><code>autoconf268
+</code></pre><p>在twemproxy目录下执行</p>
+<pre><code>autoconf268 -fvi
+./configure
+make
+cd scripts
+cp nutcracker.init /etc/init.d/twemproxy
+cd twemproxy/conf
+</code></pre><p>把配置文件全都拷过去</p>
+<pre><code>cp * /etc/nutcracker/
+</code></pre><p>这样做可以在任何路径下都能直接使用命令</p>
+<pre><code>cp nutcracker /usr/bin/
+</code></pre><p>进入redis目录</p>
+<pre><code>make
+</code></pre><p>redis的清除cache命令</p>
+<pre><code>make distclean
+</code></pre><p>开始安装redis</p>
+<pre><code>make install PREFIX=/opt/yupsoftware/redis-5.0.5/
+cd /opt/yupsoftware/redis-5.0.5/utils
+./install_server.sh
+</code></pre><p>输入你自己配置的参数,然后检查一下服务是否正常</p>
+<pre><code>service redis_6379 status
+</code></pre><p>搞定之后去搞其他的机器,等到三台机器全部搞好之后回主机,看看代理是否正常</p>
+<pre><code>service twemproxy start
+service twemproxy status
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/16/QQ2019091217342233a1d.png" alt></p>
+<p>日,查找资料得修改redis的配置文件,这里应该能有找到报错的地方,不过现在我不知道,有时间应该查一下资料</p>
+<pre><code>#bind 127.0.0.1
+protected-mode no
+
+redis-cli -h mea
+redis-cli -h cierra
+</code></pre><p>继续</p>
+<pre><code>redis-cli -p 22121
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/16/QQ201909160925421712a.png" alt></p>
+<p>卧槽?什么情况?<br>查询资料得知,正常情况,不要担心,继续<br>不支持keys *,事物,watch,flushall等等,详情请参照<a href="https://github.com/twitter/twemproxy" target="_blank" rel="noopener">twemproxy官方文档</a></p>
+<pre><code># 不支持
+keys *
+</code></pre><p>其实这里已经大功告成,可以新开client去连redis-server,直接就能找到key了</p>
+<p><img src="https://www.yremp.live/images/2019/09/16/QQ201909160951333f938.png" alt></p>
+<p>不过个人搭建期间还是遇到了不少问题,同学们一定要多多注意,我贴一下我遇到的一个小问题</p>
+<p><img src="https://www.yremp.live/images/2019/09/16/QQ201909121806525adcc.png" alt></p>
+<p>解决方法也很简单,改配置文件就行了,注意缩进</p>
+<h4 id="predixy"><a href="#predixy" class="headerlink" title="predixy"></a>predixy</h4><p>首先去<a href="https://github.com/joyieldInc/predixy" target="_blank" rel="noopener">predixy</a>下载,然后解压,进入配置文件目录,打开predixy.conf文件,进行如下修改</p>
+<p><img src="https://www.yremp.live/images/2019/09/16/QQ20190916104545cbb6d.png" alt></p>
+<pre><code>Bind 127.0.0.1:7617
+Include sentinel.conf
+# Include try.conf
+</code></pre><p>保存,退出,打开sentinel.conf,参照example里面进行你自己的修改,使用vim的命令行工具</p>
+<pre><code>#光标放置SentinelServerPool这一行
+.,$y
+#粘贴命令,p
+p
+.,$s/#//
+</code></pre><p>普及一个小小的vim快捷键指令</p>
+<pre><code>gg 跳转到文档开头
+G 跳转到文档末尾
+</code></pre><p>继续修改配置文件</p>
+<pre><code>#Sentinels里面改成你的哨兵的端口号,group改成你的哨兵名
+Sentinels {
+        + aqua:26379
+        + mea:26379
+        + cierra:26379
+}
+Group nakiri {
+}
+Group nemu {
+}
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/16/QQ20190916110529a24f0.png" alt></p>
+<p>新建哨兵的配置文件26379.conf</p>
+<pre><code># 哨兵的启动端口
+port 26379
+# 哨兵监控的第一个master的端口
+sentinel monitor nakiri aqua 36379 2
+# 哨兵监控的第二个master的端口
+sentinel monitor nemu aqua 46379 2
+</code></pre><p>启动哨兵</p>
+<pre><code>redis-server 26379.conf --sentinel --bind aqua --protected-mode no
+redis-server 26379.conf --sentinel --bind mea --protected-mode no
+redis-server 26379.conf --sentinel --bind cierra --protected-mode no
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/17/QQ201909161818384b18e.png" alt></p>
+<p>启动主(aqua)</p>
+<pre><code># redis-server --port 36379
+# redis-server --port 46379
+redis-server --port 36379 --bind aqua --protected-mode no
+redis-server --port 46379 --bind aqua --protected-mode no
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/17/QQ2019091618184619433.png" alt></p>
+<p>启动从(mea,cierra)</p>
+<pre><code>redis-server --port 36380 --replicaof aqua 36379 --bind mea --protected-mode no
+redis-server --port 36380 --replicaof aqua 36379 --bind cierra --protected-mode no
+redis-server --port 46380 --replicaof aqua 46379 --bind mea --protected-mode no
+redis-server --port 46380 --replicaof aqua 46379 --bind cierra --protected-mode no
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/17/QQ201909161640011bf41.png" alt></p>
+<p>启动predixy</p>
+<pre><code>./predixy ../conf/predixy.conf
+</code></pre><p>启动client</p>
+<pre><code>redis-cli -p 7617
+set hololive minatoaqua
+get hololive
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/17/QQ20190916181855c9fea.png" alt></p>
+<p>可以看到结果,代表成功,然后新开cli去找一下数据在哪看看,可以看到数据已经打散分布到各个机器上</p>
+<p><img src="https://www.yremp.live/images/2019/09/17/QQ20190917093101389b7.png" alt></p>
+<p>继续测试控制存储,插入数据</p>
+<pre><code>set {aqua}aqua mea
+set {aqua}mea aqua
+</code></pre><p>可以看到,可以由你自己控制存在哪里</p>
+<p><img src="https://www.yremp.live/images/2019/09/17/QQ2019091709355054997.png" alt></p>
+<pre><code>watch {aqua}aqua
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/17/QQ2019091709364550fe5.png" alt></p>
+<p>不支持,因为有两套主从,想要事物,只能存在一个group</p>
+<p>所以修改配置文件,删除一个group</p>
+<p><img src="https://www.yremp.live/images/2019/09/17/QQ2019091709381692821.png" alt></p>
+<pre><code>set aqua mea
+set mea aqua
+keys *
+watch aqua
+multi
+get aqua
+set aqua
+exec
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/17/QQ20190917094055fae78.png" alt></p>
+<p>可以发现已经支持事物了</p>
+<p>继续测试,可以发现组二的已经全部查不到了,但是组一的还在,可以正常查</p>
+<p><img src="https://www.yremp.live/images/2019/09/17/QQ20190917094348229b6.png" alt></p>
+<p>info看一下信息</p>
+<pre><code># Proxy
+Version:1.0.5
+Name:PredixyExample
+Bind:127.0.0.1:7617
+RedisMode:proxy
+SingleThread:false
+WorkerThreads:1
+Uptime:1568684273
+UptimeSince:2019-09-17 09:37:53
+
+# SystemResource
+UsedMemory:66776
+MaxMemory:0
+MaxRSS:4296704
+UsedCpuSys:0.510
+UsedCpuUser:0.025
+
+# Stats
+Accept:2
+ClientConnections:1
+TotalRequests:2096
+TotalResponses:2097
+TotalRecvClientBytes:718
+TotalSendServerBytes:101957
+TotalRecvServerBytes:1146244
+TotalSendClientBytes:307
+
+# Servers
+Server:192.168.3.72:36380
+Role:master
+Group:nakiri
+DC:
+CurrentIsFail:0
+Connections:2
+Connect:2
+Requests:21
+Responses:21
+SendBytes:590
+RecvBytes:140
+
+Server:192.168.3.70:36379
+Role:slave
+Group:nakiri
+DC:
+CurrentIsFail:0
+Connections:0
+Connect:0
+Requests:0
+Responses:0
+SendBytes:0
+RecvBytes:0
+
+
+# LatencyMonitor
+LatencyMonitorName:all
+&lt;=          100                   59                6 24.00%
+&lt;=          400                 1407                4 40.00%
+&lt;=          500                 2652                6 64.00%
+&lt;=          700                 1953                3 76.00%
+&lt;=          800                  782                1 80.00%
+&lt;=          900                 1635                2 88.00%
+&lt;=         1000                 1896                2 96.00%
+&lt;=         1200                 1060                1 100.00%
+T           457                11444               25
+
+LatencyMonitorName:get
+&lt;=          400                 1407                4 26.67%
+&lt;=          500                 2236                5 60.00%
+&lt;=          700                 1953                3 80.00%
+&lt;=          900                  815                1 86.67%
+&lt;=         1000                  946                1 93.33%
+&gt;          1000                 1060                1 100.00%
+T           561                 8417               15
+
+LatencyMonitorName:set
+&lt;=          800                  782                1 50.00%
+&lt;=          900                  820                1 100.00%
+T           801                 1602                2
+
+LatencyMonitorName:blist
+</code></pre><p>可以看到现在server是cierra的36380</p>
+<p>ctrl+c取消cierra的主服务</p>
+<p><img src="https://www.yremp.live/images/2019/09/17/QQ201909171008205963e.png" alt></p>
+<p>过一会,哨兵自动更换主</p>
+<p><img src="https://www.yremp.live/images/2019/09/17/QQ2019091710094964e31.png" alt></p>
+<p>这时再回去info看一下</p>
+<pre><code># Proxy
+Version:1.0.5
+Name:PredixyExample
+Bind:127.0.0.1:7617
+RedisMode:proxy
+SingleThread:false
+WorkerThreads:1
+Uptime:1568684273
+UptimeSince:2019-09-17 09:37:53
+
+# SystemResource
+UsedMemory:70872
+MaxMemory:0
+MaxRSS:4354048
+UsedCpuSys:1.189
+UsedCpuUser:0.058
+
+# Stats
+Accept:2
+ClientConnections:1
+TotalRequests:5649
+TotalResponses:5657
+TotalRecvClientBytes:1172
+TotalSendServerBytes:275554
+TotalRecvServerBytes:3118933
+TotalSendClientBytes:13785
+
+# Servers
+Server:192.168.3.72:36380
+Role:slave
+Group:nakiri
+DC:
+CurrentIsFail:0
+Connections:2
+Connect:2
+Requests:31
+Responses:31
+SendBytes:874
+RecvBytes:202
+
+Server:192.168.3.70:36379
+Role:master
+Group:nakiri
+DC:
+CurrentIsFail:0
+Connections:0
+Connect:0
+Requests:0
+Responses:0
+SendBytes:0
+RecvBytes:0
+
+
+# LatencyMonitor
+LatencyMonitorName:all
+&lt;=          100                  459               15 33.33%
+&lt;=          300                  854                3 40.00%
+&lt;=          400                 3658               11 64.44%
+&lt;=          500                 2652                6 77.78%
+&lt;=          600                  513                1 80.00%
+&lt;=          700                 1953                3 86.67%
+&lt;=          800                  782                1 88.89%
+&lt;=          900                 1635                2 93.33%
+&lt;=         1000                 1896                2 97.78%
+&lt;=         1200                 1060                1 100.00%
+T           343                15462               45
+
+LatencyMonitorName:get
+&lt;=          300                  854                3 12.00%
+&lt;=          400                 3312               10 52.00%
+&lt;=          500                 2236                5 72.00%
+&lt;=          600                  513                1 76.00%
+&lt;=          700                 1953                3 88.00%
+&lt;=          900                  815                1 92.00%
+&lt;=         1000                  946                1 96.00%
+&gt;          1000                 1060                1 100.00%
+T           467                11689               25
+
+LatencyMonitorName:set
+&lt;=          800                  782                1 50.00%
+&lt;=          900                  820                1 100.00%
+T           801                 1602                2
+
+LatencyMonitorName:blist
+</code></pre><p>可以发现,主已经被更换,服务还能正常使用,并且对于7617的用户来说,并没有任何的感知,该怎么用还是怎么用</p>
+<h4 id="cluster"><a href="#cluster" class="headerlink" title="cluster"></a>cluster</h4><p>(这地方挺简单的,就不贴图了)</p>
+<p>不需要代理,redis自行实现,无主模型</p>
+<pre><code>cd utils/create-cluster
+vim create-cluster
+</code></pre><p>直接启动</p>
+<pre><code>./create-cluster start
+</code></pre><p>进行分赃</p>
+<pre><code>./create-cluster create
+</code></pre><p>进去看看</p>
+<pre><code># 自动跳转
+redis-cli -c -p 30001
+set aqua minatoaqua
+</code></pre><p>尝试一下事物</p>
+<pre><code>multi
+set mea kaguramea
+get mea
+exec
+</code></pre><p>不可以,更换</p>
+<pre><code>watch {aqua}aqua minatoaqua
+multi
+set {aqua}aqua minatoaqua
+get {aqua}aqua
+exec
+</code></pre><p>成功</p>
+<p>关闭集群</p>
+<pre><code>./create-cluster stop
+./create-cluster clean
+</code></pre><p>这个脚本实际相当于</p>
+<pre><code>redis-cli --cluster help
+</code></pre><p>手动实现</p>
+<pre><code>redis-cli --cluster create 127.0.0.1:40001 127.0.0.1:40002 127.0.0.1:40003 127.0.0.1:40004 127.0.0.1:40005 127.0.0.1:40006 --cluster-replicas 1
+</code></pre><p>新开一个客户端</p>
+<pre><code>redis-cli -c -p 40001
+redis-cli --cluster reshard 127.0.0.1:40001
+redis-cli --cluster info 127.0.0.1:40001
+redis-cli --cluster check 127.0.0.1:40001
+</code></pre>
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/28/flink流式计算学习02/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/-39846256f1b679e9599ac.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-28 12:04</div>
-      <a href="/2020/04/28/flink流式计算学习02/" class="post-title">
-        <h3>flink流式计算学习02</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
         
-            <a href="/tags/flink/">flink<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre half previous">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算算子学习</p>
-        <div class="post-bottom">
-          <a href="/2020/04/28/flink流式计算学习02/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/22/flink流式计算学习01/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/2461257211944c4dada90.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-22 15:04</div>
-      <a href="/2020/04/22/flink流式计算学习01/" class="post-title">
-        <h3>flink流式计算学习01</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/09/17/Redis的RDB和AOF/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ201909171056070c163.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                Redis的RDB和AOF</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/flink/">flink<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算概念及环境搭建</p>
-        <div class="post-bottom">
-          <a href="/2020/04/22/flink流式计算学习01/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/kafka/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/739c5e1e656724e8211f5.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 15:03</div>
-      <a href="/2020/03/24/kafka/" class="post-title">
-        <h3>kafka</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
         
-            <a href="/tags/kafka/">kafka<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre half next">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>kafka简明教程</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/kafka/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/docker/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/7783c569da16e2baa2363.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 14:03</div>
-      <a href="/2020/03/24/docker/" class="post-title">
-        <h3>docker</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/09/03/网络和IO初识/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/QQ201909031536305a3b1.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                网络和IO初识</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/docker/">docker<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>docker云主机搭建练习</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/docker/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2019/12/20/Mysql查询优化/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2017/10/05/7fb6f4f53141155bb7d2437a93535269.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-20 16:12</div>
-      <a href="/2019/12/20/Mysql查询优化/" class="post-title">
-        <h3>Mysql查询优化</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql查询优化</p>
-        <div class="post-bottom">
-          <a href="/2019/12/20/Mysql查询优化/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Mysql索引总结/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/60a50cf572dc00fe92059431a756bd65.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 16:12</div>
-      <a href="/2019/12/19/Mysql索引总结/" class="post-title">
-        <h3>Mysql索引总结</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql索引知识点</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Mysql索引总结/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Http协议学习/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/130ef0a857389caae79d71ad7b3e91ce.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 11:12</div>
-      <a href="/2019/12/19/Http协议学习/" class="post-title">
-        <h3>Http协议学习</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>http通讯协议简介</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Http协议学习/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/11/12/JDBC简明教程/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/11/12/QQ201911121757279340b.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-11-12 17:11</div>
-      <a href="/2019/11/12/JDBC简明教程/" class="post-title">
-        <h3>JDBC简明教程</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>JDBC简明教程</p>
-        <div class="post-bottom">
-          <a href="/2019/11/12/JDBC简明教程/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识04/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171703253a291.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识04/" class="post-title">
-        <h3>Scala初识04</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>函数式编程太坑了</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识04/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识03/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171702360e62f.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识03/" class="post-title">
-        <h3>Scala初识03</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>似乎发现了些技巧</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识03/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-right"></i></a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/2/" class>Previous</a></div>
-  
-</div>
+
 
     </div>    
     <div class="ins-search">

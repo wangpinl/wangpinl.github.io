@@ -1,13 +1,10 @@
----
-layout: false
----
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">微笑的个人主页</title>
+  <title itemprop="name">Redis的RDB和AOF | 微笑的个人主页</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -51,7 +48,7 @@ layout: false
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = ["https://img0.baidu.com/it/u=4252466585,3954983564&fm=26&fmt=auto&gp=0.jpg"];
+  var bg = "https://www.yremp.live/images/2020/04/22/79344899_p091551.jpg".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -263,454 +260,206 @@ layout: false
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">Welcome to xiaowu&#39;s blog</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/09/17/QQ201909171056070c163.jpg);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ201909171056070c163.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Redis的RDB和AOF</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=100">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">微笑</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-9-17<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <div class="top-feature-row" style="display:none">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-</div>
+
+<div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true">
-      </i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Redis之RDB和AOF"><a href="#Redis之RDB和AOF" class="headerlink" title="Redis之RDB和AOF"></a>Redis之RDB和AOF</h1><h2 id="linux管道命令"><a href="#linux管道命令" class="headerlink" title="linux管道命令"></a>linux管道命令</h2><p>将前一个命令的输出作为后一个命令的输入</p>
+<p>需要注意,管道符前的指令必须有正确的输出,管道符后必须可以处理前面的正确输出结果,不能处理前面的错误输出</p>
+<p>管道会触发两个子进程执行”|”两边的程序,重定向是在一个进程内执行</p>
+<p>redis有两种持久化数据的方案,分别为RDB(Redis DataBase)和AOF(Append Only File)</p>
+<h2 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h2><p>RDB 是 Redis 默认的持久化方案。在指定的时间间隔内，执行指定次数的写操作，则会将内存中的数据写入到磁盘中。即在指定目录下生成一个dump.rdb文件。Redis 重启会通过加载dump.rdb文件恢复数据。</p>
+<pre><code>#打开redis-cli
+set k1 v1
+set k2 v2
+set k3 v3
+set k4 v4
+set k5 v5
+keys *
+rewrite
+
+#然后找到dump.rdb
+linux -&gt; cp dump.rdb dump_bac.rdb
+
+然后回到redis-cli
+flushall
+keys *
+#可以看到什么都没有了
+
+#这时退出client,把dump_bac改回dump.rdb,然后重新进入client
+
+keys *
+#可以看到所有的keys都回来了
+#个人理解,相当于做了一个临时快照,使得数据可以持久化到磁盘上,不至于断电后丢失
+</code></pre><h2 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h2><p>AOF ：Redis 默认不开启。它的出现是为了弥补RDB的不足（数据的不一致性），所以它采用日志的形式来记录每个写操作，并追加到文件中。Redis 重启的会根据日志文件的内容将写指令从前到后执行一次以完成数据的恢复工作。</p>
+<pre><code>#打开配置文件,需要手动把no改为yes
+appendonly yes
+
+#指定本地数据库文件名，默认值为 appendonly.aof
+appendfilename &quot;appendonly.aof&quot;
+
+#指定更新日志条件
+# appendfsync always
+appendfsync everysec
+# appendfsync no
+
+#always：同步持久化，每次发生数据变化会立刻写入到磁盘中。性能较差当数据完整性比较好（慢，安全）
+#everysec：出厂默认推荐，每秒异步记录一次（默认值）
+#no：不同步
+
+#配置重写触发机制
+#当AOF文件大小是上次rewrite后大小的一倍且文件大于64M时触发,一般都设置为3G,64M太小了
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+
+[root@itdragon bin]# vim appendonly.aof
+appendonly yes
+[root@itdragon bin]# ./redis-server redis.conf
+[root@itdragon bin]# ./redis-cli -h 127.0.0.1 -p 6379
+127.0.0.1:6379&gt; keys *
+(empty list or set)
+127.0.0.1:6379&gt; set keyAOf valueAof
+OK
+127.0.0.1:6379&gt; FLUSHALL 
+OK
+127.0.0.1:6379&gt; SHUTDOWN
+not connected&gt; QUIT
+[root@itdragon bin]# ./redis-server redis.conf
+[root@itdragon bin]# ./redis-cli -h 127.0.0.1 -p 6379
+127.0.0.1:6379&gt; keys *
+1) &quot;keyAOf&quot;
+127.0.0.1:6379&gt; SHUTDOWN
+not connected&gt; QUIT
+[root@itdragon bin]# vim appendonly.aof
+fjewofjwojfoewifjowejfwf
+[root@itdragon bin]# ./redis-server redis.conf
+[root@itdragon bin]# ./redis-cli -h 127.0.0.1 -p 6379
+Could not connect to Redis at 127.0.0.1:6379: Connection refused
+not connected&gt; QUIT
+[root@itdragon bin]# redis-check-aof --fix appendonly.aof 
+&#39;x              3e: Expected prefix &#39;*&#39;, got: &#39;
+AOF analyzed: size=92, ok_up_to=62, diff=30
+This will shrink the AOF from 92 bytes, with 30 bytes, to 62 bytes
+Continue? [y/N]: y
+Successfully truncated AOF
+[root@itdragon bin]# ./redis-server redis.conf
+[root@itdragon bin]# ./redis-cli -h 127.0.0.1 -p 6379
+127.0.0.1:6379&gt; keys *
+1) &quot;keyAOf&quot;
+</code></pre><h3 id="触发AOF快照"><a href="#触发AOF快照" class="headerlink" title="触发AOF快照"></a>触发AOF快照</h3><p>根据配置文件触发，可以是每次执行触发，可以是每秒触发，可以不同步。</p>
+<h3 id="根据AOF文件恢复数据"><a href="#根据AOF文件恢复数据" class="headerlink" title="根据AOF文件恢复数据"></a>根据AOF文件恢复数据</h3><p>正常情况下，将appendonly.aof 文件拷贝到redis的安装目录的bin目录下，重启redis服务即可。但在实际开发中，可能因为某些原因导致appendonly.aof 文件格式异常，从而导致数据还原失败，可以通过命令redis-check-aof –fix appendonly.aof 进行修复 。从下面的操作演示中体会。</p>
+<h3 id="AOF的重写机制"><a href="#AOF的重写机制" class="headerlink" title="AOF的重写机制"></a>AOF的重写机制</h3><p>前面也说到了，AOF的工作原理是将写操作追加到文件中，文件的冗余内容会越来越多。所以聪明的 Redis 新增了重写机制。当AOF文件的大小超过所设定的阈值时，Redis就会对AOF文件的内容压缩。</p>
+<p>重写的原理：Redis 会fork出一条新进程，读取内存中的数据，并重新写到一个临时文件中。并没有读取旧文件（你都那么大了，我还去读你？？？ o(ﾟДﾟ)っ傻啊！）。最后替换旧的aof文件。</p>
+<p>触发机制：当AOF文件大小是上次rewrite后大小的一倍且文件大于64M时触发。这里的“一倍”和“64M” 可以通过配置文件修改。</p>
+<h3 id="AOF-的优缺点"><a href="#AOF-的优缺点" class="headerlink" title="AOF 的优缺点"></a>AOF 的优缺点</h3><p>优点：数据的完整性和一致性更高<br>缺点：因为AOF记录的内容多，文件会越来越大，数据恢复也会越来越慢。</p>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/28/flink流式计算学习02/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/-39846256f1b679e9599ac.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-28 12:04</div>
-      <a href="/2020/04/28/flink流式计算学习02/" class="post-title">
-        <h3>flink流式计算学习02</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
         
-            <a href="/tags/flink/">flink<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre half previous">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算算子学习</p>
-        <div class="post-bottom">
-          <a href="/2020/04/28/flink流式计算学习02/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/22/flink流式计算学习01/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/2461257211944c4dada90.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-22 15:04</div>
-      <a href="/2020/04/22/flink流式计算学习01/" class="post-title">
-        <h3>flink流式计算学习01</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/09/18/Zookeeper初识/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/18/QQ20190918120230ad965.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                Zookeeper初识</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/flink/">flink<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算概念及环境搭建</p>
-        <div class="post-bottom">
-          <a href="/2020/04/22/flink流式计算学习01/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/kafka/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/739c5e1e656724e8211f5.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 15:03</div>
-      <a href="/2020/03/24/kafka/" class="post-title">
-        <h3>kafka</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
         
-            <a href="/tags/kafka/">kafka<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre half next">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>kafka简明教程</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/kafka/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/docker/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/7783c569da16e2baa2363.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 14:03</div>
-      <a href="/2020/03/24/docker/" class="post-title">
-        <h3>docker</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/09/17/Redis集群/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ201909171051590012d.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Redis集群</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/docker/">docker<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>docker云主机搭建练习</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/docker/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2019/12/20/Mysql查询优化/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2017/10/05/7fb6f4f53141155bb7d2437a93535269.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-20 16:12</div>
-      <a href="/2019/12/20/Mysql查询优化/" class="post-title">
-        <h3>Mysql查询优化</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql查询优化</p>
-        <div class="post-bottom">
-          <a href="/2019/12/20/Mysql查询优化/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Mysql索引总结/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/60a50cf572dc00fe92059431a756bd65.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 16:12</div>
-      <a href="/2019/12/19/Mysql索引总结/" class="post-title">
-        <h3>Mysql索引总结</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql索引知识点</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Mysql索引总结/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Http协议学习/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/130ef0a857389caae79d71ad7b3e91ce.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 11:12</div>
-      <a href="/2019/12/19/Http协议学习/" class="post-title">
-        <h3>Http协议学习</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>http通讯协议简介</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Http协议学习/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/11/12/JDBC简明教程/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/11/12/QQ201911121757279340b.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-11-12 17:11</div>
-      <a href="/2019/11/12/JDBC简明教程/" class="post-title">
-        <h3>JDBC简明教程</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>JDBC简明教程</p>
-        <div class="post-bottom">
-          <a href="/2019/11/12/JDBC简明教程/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识04/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171703253a291.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识04/" class="post-title">
-        <h3>Scala初识04</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>函数式编程太坑了</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识04/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识03/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171702360e62f.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识03/" class="post-title">
-        <h3>Scala初识03</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>似乎发现了些技巧</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识03/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-right"></i></a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/2/" class>Previous</a></div>
-  
-</div>
+
 
     </div>    
     <div class="ins-search">

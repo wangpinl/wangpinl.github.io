@@ -1,13 +1,10 @@
----
-layout: false
----
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">微笑的个人主页</title>
+  <title itemprop="name">Dubbo4 | 微笑的个人主页</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -51,7 +48,7 @@ layout: false
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = ["https://img0.baidu.com/it/u=4252466585,3954983564&fm=26&fmt=auto&gp=0.jpg"];
+  var bg = "https://www.yremp.live/images/2020/04/22/79344899_p091551.jpg".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -263,454 +260,261 @@ layout: false
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">Welcome to xiaowu&#39;s blog</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/08/25/QQ2019082518170237bfc.jpg);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ2019082518170237bfc.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Dubbo4</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=100">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">微笑</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-25<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <div class="top-feature-row" style="display:none">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-</div>
+
+<div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true">
-      </i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Dubbo-04"><a href="#Dubbo-04" class="headerlink" title="Dubbo 04"></a>Dubbo 04</h1><h1 id="服务化最佳实践"><a href="#服务化最佳实践" class="headerlink" title="服务化最佳实践"></a>服务化最佳实践</h1><h2 id="分包"><a href="#分包" class="headerlink" title="分包"></a>分包</h2><p>建议将服务接口、服务模型、服务异常等均放在 API 包中，因为服务模型和异常也是 API 的一部分，这样做也符合分包原则：重用发布等价原则(REP)，共同重用原则(CRP)。</p>
+<p>如果需要，也可以考虑在 API 包中放置一份 Spring 的引用配置，这样使用方只需在 Spring 加载过程中引用此配置即可。配置建议放在模块的包目录下，以免冲突，如：<code>com/alibaba/china/xxx/dubbo-reference.xml</code>。</p>
+<h2 id="Maven-聚合项目改造"><a href="#Maven-聚合项目改造" class="headerlink" title="Maven 聚合项目改造"></a>Maven 聚合项目改造</h2><p>公用的接口、工具类、实体类等抽取出API项目独立维护更新</p>
+<p>每次更新后需要install</p>
+<h2 id="粒度"><a href="#粒度" class="headerlink" title="粒度"></a>粒度</h2><p>服务接口尽可能大粒度，每个服务方法应代表一个功能，而不是某功能的一个步骤，否则将面临分布式事务问题，Dubbo 暂未提供分布式事务支持。</p>
+<p>服务接口建议以业务场景为单位划分，并对相近业务做抽象，防止接口数量爆炸。</p>
+<p>不建议使用过于抽象的通用接口，如：<code>Map query(Map)</code>，这样的接口没有明确语义，会给后期维护带来不便。</p>
+<h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><p>每个接口都应定义版本号，为后续不兼容升级提供可能，如： <code>&lt;dubbo:service interface=&quot;com.xxx.XxxService&quot; version=&quot;1.0&quot; /&gt;</code>。</p>
+<p>建议使用两位版本号，因为第三位版本号通常表示兼容升级，只有不兼容时才需要变更服务版本。</p>
+<p>当不兼容时，先升级一半提供者为新版本，再将消费者全部升为新版本，然后将剩下的一半提供者升为新版本。</p>
+<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>服务接口增加方法，或服务模型增加字段，可向后兼容，删除方法或删除字段，将不兼容，枚举类型新增字段也不兼容，需通过变更版本号升级。</p>
+<h2 id="枚举值"><a href="#枚举值" class="headerlink" title="枚举值"></a>枚举值</h2><p>如果是完备集，可以用 <code>Enum</code>，比如：<code>ENABLE</code>, <code>DISABLE</code>。</p>
+<p>如果是业务种类，以后明显会有类型增加，不建议用 <code>Enum</code>，可以用 <code>String</code> 代替。</p>
+<p>如果是在返回值中用了 <code>Enum</code>，并新增了 <code>Enum</code> 值，建议先升级服务消费方，这样服务提供方不会返回新值。</p>
+<p>如果是在传入参数中用了 <code>Enum</code>，并新增了 <code>Enum</code> 值，建议先升级服务提供方，这样服务消费方不会传入新值。</p>
+<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>服务参数及返回值建议使用 POJO 对象，即通过 <code>setter</code>, <code>getter</code> 方法表示属性的对象。</p>
+<p>服务参数及返回值不建议使用接口，因为数据模型抽象的意义不大，并且序列化需要接口实现类的元信息，并不能起到隐藏实现的意图。</p>
+<p>服务参数及返回值都必须是<a href="https://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_value" target="_blank" rel="noopener">传值调用</a>，而不能是<a href="https://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_reference" target="_blank" rel="noopener">传引用调用</a>，消费方和提供方的参数或返回值引用并不是同一个，只是值相同，Dubbo 不支持引用远程对象。</p>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>建议使用异常汇报错误，而不是返回错误码，异常信息能携带更多信息，并且语义更友好。</p>
+<p>如果担心性能问题，在必要时，可以通过 override 掉异常类的 <code>fillInStackTrace()</code> 方法为空方法，使其不拷贝栈信息。</p>
+<p>查询方法不建议抛出 checked 异常，否则调用方在查询时将过多的 <code>try...catch</code>，并且不能进行有效处理。</p>
+<p>服务提供方不应将 DAO 或 SQL 等异常抛给消费方，应在服务实现中对消费方不关心的异常进行包装，否则可能出现消费方无法反序列化相应异常。</p>
+<h2 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h2><p>不要只是因为是 Dubbo 调用，而把调用 <code>try...catch</code> 起来。<code>try...catch</code> 应该加上合适的回滚边界上。</p>
+<p>Provider 端需要对输入参数进行校验。如有性能上的考虑，服务实现者可以考虑在 API 包上加上服务 Stub 类来完成检验。</p>
+<h2 id="在-Provider-端尽量多配置-Consumer-端属性"><a href="#在-Provider-端尽量多配置-Consumer-端属性" class="headerlink" title="在 Provider 端尽量多配置 Consumer 端属性"></a>在 Provider 端尽量多配置 Consumer 端属性</h2><p>原因如下：</p>
+<ul>
+<li>作服务的提供方，比服务消费方更清楚服务的性能参数，如调用的超时时间、合理的重试次数等</li>
+<li>在 Provider 端配置后，Consumer 端不配置则会使用 Provider 端的配置，即 Provider 端的配置可以作为 Consumer 的缺省值 <a href="http://dubbo.apache.org/zh-cn/docs/user/recommend.html#fn1" target="_blank" rel="noopener">[1]</a>。否则，Consumer 会使用 Consumer 端的全局设置，这对于 Provider 是不可控的，并且往往是不合理的</li>
+</ul>
+<p>Provider 端尽量多配置 Consumer 端的属性，让 Provider 的实现者一开始就思考 Provider 端的服务特点和服务质量等问题。</p>
+<h2 id="建议在-Provider-端配置的-Consumer-端属性"><a href="#建议在-Provider-端配置的-Consumer-端属性" class="headerlink" title="建议在 Provider 端配置的 Consumer 端属性"></a>建议在 Provider 端配置的 Consumer 端属性</h2><ol>
+<li><code>timeout</code>：方法调用的超时时间</li>
+<li><code>retries</code>：失败重试次数，缺省是 2 </li>
+<li><code>loadbalance</code>：负载均衡算法，缺省是随机 <code>random</code> + 权重。还可以配置轮询 <code>roundrobin</code>、最不活跃优先 <code>leastactive</code> 和一致性哈希 <code>consistenthash</code> 等</li>
+<li><code>actives</code>：消费者端的最大并发调用限制，即当 Consumer 对一个服务的并发调用到上限后，新调用会阻塞直到超时，在方法上配置 <code>dubbo:method</code> 则针对该方法进行并发限制，在接口上配置 <code>dubbo:service</code>，则针对该服务进行并发限制</li>
+<li><code>executes</code>服务提供方可以使用的最大线程数</li>
+</ol>
+<h2 id="在-Provider-端配置合理的-Provider-端属性"><a href="#在-Provider-端配置合理的-Provider-端属性" class="headerlink" title="在 Provider 端配置合理的 Provider 端属性"></a>在 Provider 端配置合理的 Provider 端属性</h2><p>建议在 Provider 端配置的 Provider 端属性有：</p>
+<ol>
+<li><code>threads</code>：服务线程池大小</li>
+<li><code>executes</code>：一个服务提供者并行执行请求上限，即当 Provider 对一个服务的并发调用达到上限后，新调用会阻塞，此时 Consumer 可能会超时。在方法上配置 <code>dubbo:method</code> 则针对该方法进行并发限制，在接口上配置 <code>dubbo:service</code>，则针对该服务进行并发限制</li>
+</ol>
+<p>项目中多个模块间公共依赖的版本号、scope的控制</p>
+<h2 id="配置-Dubbo-缓存文件"><a href="#配置-Dubbo-缓存文件" class="headerlink" title="配置 Dubbo 缓存文件"></a>配置 Dubbo 缓存文件</h2><p>提供者列表缓存文件：</p>
+<pre><code class="xml">&lt;dubbo:registry file=”${user.home}/output/dubbo.cache” /&gt;
+</code></pre>
+<pre><code class="properties">dubbo.registry.file=c:/output/dubbo.cache
+</code></pre>
+<p>注意：</p>
+<ol>
+<li>可以根据需要调整缓存文件的路径，保证这个文件不会在发布过程中被清除；</li>
+<li>如果有多个应用进程，请注意不要使用同一个文件，避免内容被覆盖；</li>
+</ol>
+<p>该文件会缓存注册中心列表和服务提供者列表。配置缓存文件后，应用重启过程中，若注册中心不可用，应用会从该缓存文件读取服务提供者列表，进一步保证应用可靠性。</p>
+<h2 id="启动检查"><a href="#启动检查" class="headerlink" title="启动检查"></a>启动检查</h2><p>Dubbo 缺省会在启动时检查依赖的服务是否可用，不可用时会抛出异常，阻止 Spring 初始化完成，以便上线时，能及早发现问题，默认 <code>check=&quot;true&quot;</code>。</p>
+<p>可以通过 <code>check=&quot;false&quot;</code> 关闭检查，比如，测试时，有些服务不关心，或者出现了循环依赖，必须有一方先启动。</p>
+<p>另外，如果你的 Spring 容器是懒加载的，或者通过 API 编程延迟引用服务，请关闭 check，否则服务临时不可用时，会抛出异常，拿到 null 引用，如果 <code>check=&quot;false&quot;</code>，总是会返回引用，当服务恢复时，能自动连上。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><h4 id="通过-spring-配置文件"><a href="#通过-spring-配置文件" class="headerlink" title="通过 spring 配置文件"></a>通过 spring 配置文件</h4><p>关闭某个服务的启动时检查 (没有提供者时报错)：</p>
+<pre><code class="xml">&lt;dubbo:reference interface=&quot;com.foo.BarService&quot; check=&quot;false&quot; /&gt;
+</code></pre>
+<p>关闭所有服务的启动时检查 (没有提供者时报错)：</p>
+<pre><code class="xml">&lt;dubbo:consumer check=&quot;false&quot; /&gt;
+</code></pre>
+<p>关闭注册中心启动时检查 (注册订阅失败时报错)：</p>
+<pre><code class="xml">&lt;dubbo:registry check=&quot;false&quot; /&gt;
+</code></pre>
+<h4 id="通过-dubbo-properties"><a href="#通过-dubbo-properties" class="headerlink" title="通过 dubbo.properties"></a>通过 dubbo.properties</h4><pre><code class="properties">dubbo.reference.com.foo.BarService.check=false
+dubbo.reference.check=false
+dubbo.consumer.check=false
+dubbo.registry.check=false
+</code></pre>
+<h4 id="通过-D-参数"><a href="#通过-D-参数" class="headerlink" title="通过 -D 参数"></a>通过 -D 参数</h4><pre><code class="sh">java -Ddubbo.reference.com.foo.BarService.check=false
+java -Ddubbo.reference.check=false
+java -Ddubbo.consumer.check=false 
+java -Ddubbo.registry.check=false
+</code></pre>
+<h4 id="配置的含义"><a href="#配置的含义" class="headerlink" title="配置的含义"></a>配置的含义</h4><p><code>dubbo.reference.check=false</code>，强制改变所有 reference 的 check 值，就算配置中有声明，也会被覆盖。</p>
+<p><code>dubbo.consumer.check=false</code>，是设置 check 的缺省值，如果配置中有显式的声明，如：<code>&lt;dubbo:reference check=&quot;true&quot;/&gt;</code>，不会受影响。</p>
+<p><code>dubbo.registry.check=false</code>，前面两个都是指订阅成功，但提供者列表是否为空是否报错，如果注册订阅失败时，也允许启动，需使用此选项，将在后台定时重试。</p>
+<h2 id="metrics"><a href="#metrics" class="headerlink" title="metrics"></a>metrics</h2><p>当我们需要为某个系统某个服务做监控、做统计，就需要用到Metrics。</p>
+<h2 id="延迟暴露"><a href="#延迟暴露" class="headerlink" title="延迟暴露"></a>延迟暴露</h2><p>@Service(version = “1.0.0” ,timeout = 10000, interfaceClass = IAccountService.class,delay = 1000000)</p>
+<h2 id="Telnet治理服务"><a href="#Telnet治理服务" class="headerlink" title="Telnet治理服务"></a>Telnet治理服务</h2><h3 id="显示服务"><a href="#显示服务" class="headerlink" title="显示服务"></a>显示服务</h3><p><code>ls</code></p>
+<ol>
+<li><code>ls</code>: 显示服务列表</li>
+<li><code>ls -l</code>: 显示服务详细信息列表</li>
+<li><code>ls XxxService</code>: 显示服务的方法列表</li>
+<li><code>ls -l XxxService</code>: 显示服务的方法详细信息列表</li>
+</ol>
+<p><code>ps</code></p>
+<ol>
+<li><code>ps</code>: 显示服务端口列表</li>
+<li><code>ps -l</code>: 显示服务地址列表</li>
+<li><code>ps 20880</code>: 显示端口上的连接信息</li>
+<li><code>ps -l 20880</code>: 显示端口上的连接详细信息</li>
+</ol>
+<h3 id="服务调用"><a href="#服务调用" class="headerlink" title="服务调用"></a>服务调用</h3><p>引入fastjson依赖</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+    &lt;artifactId&gt;fastjson&lt;/artifactId&gt;
+    &lt;version&gt;1.2.51&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<pre><code class="java">invoke com.mashibing.springboot.service.IRoleService:1.0.0.findById(8)
+</code></pre>
+<h3 id="Telnet命令扩展"><a href="#Telnet命令扩展" class="headerlink" title="Telnet命令扩展"></a>Telnet命令扩展</h3><p><a href="http://dubbo.apache.org/zh-cn/docs/dev/impls/telnet-handler.html" target="_blank" rel="noopener">http://dubbo.apache.org/zh-cn/docs/dev/impls/telnet-handler.html</a></p>
+<h3 id="QOS-模块手动上下线"><a href="#QOS-模块手动上下线" class="headerlink" title="QOS 模块手动上下线"></a>QOS 模块手动上下线</h3><h4 id="相关参数说明"><a href="#相关参数说明" class="headerlink" title="相关参数说明"></a>相关参数说明</h4><p>QoS提供了一些启动参数，来对启动进行配置，他们主要包括：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>qosEnable</td>
+<td>是否启动QoS</td>
+<td>true</td>
+</tr>
+<tr>
+<td>qosPort</td>
+<td>启动QoS绑定的端口</td>
+<td>22222</td>
+</tr>
+<tr>
+<td>qosAcceptForeignIp</td>
+<td>是否允许远程访问</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意，从2.6.4/2.7.0开始，qosAcceptForeignIp默认配置改为false，如果qosAcceptForeignIp设置为true，有可能带来安全风险，请仔细评估后再打开。</p>
+</blockquote>
+<p>新版本的 telnet 端口 与 dubbo 协议的端口是不同的端口，默认为 <code>22222</code>，可通过配置文件<code>dubbo.properties</code>修改:</p>
+<pre><code>dubbo.application.qos.port=33333
+</code></pre><p>或者通过设置 JVM 参数:</p>
+<pre><code>-Ddubbo.application.qos.port=33333
+</code></pre><p>默认情况下，dubbo 接收任何主机发起的命令，可通过配置文件<code>dubbo.properties</code> 修改:</p>
+<pre><code>dubbo.application.qos.accept.foreign.ip=false
+</code></pre><p>或者通过设置 JVM 参数:</p>
+<pre><code>-Ddubbo.application.qos.accept.foreign.ip=false
+</code></pre>
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/28/flink流式计算学习02/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/-39846256f1b679e9599ac.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-28 12:04</div>
-      <a href="/2020/04/28/flink流式计算学习02/" class="post-title">
-        <h3>flink流式计算学习02</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
         
-            <a href="/tags/flink/">flink<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre half previous">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算算子学习</p>
-        <div class="post-bottom">
-          <a href="/2020/04/28/flink流式计算学习02/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/22/flink流式计算学习01/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/2461257211944c4dada90.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-22 15:04</div>
-      <a href="/2020/04/22/flink流式计算学习01/" class="post-title">
-        <h3>flink流式计算学习01</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/08/25/Lua教程/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825181714d2567.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                Lua教程</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/flink/">flink<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算概念及环境搭建</p>
-        <div class="post-bottom">
-          <a href="/2020/04/22/flink流式计算学习01/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/kafka/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/739c5e1e656724e8211f5.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 15:03</div>
-      <a href="/2020/03/24/kafka/" class="post-title">
-        <h3>kafka</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
         
-            <a href="/tags/kafka/">kafka<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre half next">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>kafka简明教程</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/kafka/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/docker/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/7783c569da16e2baa2363.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 14:03</div>
-      <a href="/2020/03/24/docker/" class="post-title">
-        <h3>docker</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/08/25/Dubbo3/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825181558b01d9.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Dubbo3</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/docker/">docker<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>docker云主机搭建练习</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/docker/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2019/12/20/Mysql查询优化/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2017/10/05/7fb6f4f53141155bb7d2437a93535269.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-20 16:12</div>
-      <a href="/2019/12/20/Mysql查询优化/" class="post-title">
-        <h3>Mysql查询优化</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql查询优化</p>
-        <div class="post-bottom">
-          <a href="/2019/12/20/Mysql查询优化/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Mysql索引总结/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/60a50cf572dc00fe92059431a756bd65.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 16:12</div>
-      <a href="/2019/12/19/Mysql索引总结/" class="post-title">
-        <h3>Mysql索引总结</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql索引知识点</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Mysql索引总结/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Http协议学习/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/130ef0a857389caae79d71ad7b3e91ce.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 11:12</div>
-      <a href="/2019/12/19/Http协议学习/" class="post-title">
-        <h3>Http协议学习</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>http通讯协议简介</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Http协议学习/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/11/12/JDBC简明教程/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/11/12/QQ201911121757279340b.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-11-12 17:11</div>
-      <a href="/2019/11/12/JDBC简明教程/" class="post-title">
-        <h3>JDBC简明教程</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>JDBC简明教程</p>
-        <div class="post-bottom">
-          <a href="/2019/11/12/JDBC简明教程/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识04/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171703253a291.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识04/" class="post-title">
-        <h3>Scala初识04</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>函数式编程太坑了</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识04/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识03/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171702360e62f.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识03/" class="post-title">
-        <h3>Scala初识03</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>似乎发现了些技巧</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识03/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-right"></i></a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/2/" class>Previous</a></div>
-  
-</div>
+
 
     </div>    
     <div class="ins-search">

@@ -1,13 +1,10 @@
----
-layout: false
----
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">微笑的个人主页</title>
+  <title itemprop="name">HiveJDBC | 微笑的个人主页</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -51,7 +48,7 @@ layout: false
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = ["https://img0.baidu.com/it/u=4252466585,3954983564&fm=26&fmt=auto&gp=0.jpg"];
+  var bg = "https://www.yremp.live/images/2020/04/22/79344899_p091551.jpg".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -263,454 +260,223 @@ layout: false
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">Welcome to xiaowu&#39;s blog</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/09/03/title18a2d0a.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/title18a2d0a.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      HiveJDBC</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=100">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">微笑</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-12<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <div class="top-feature-row" style="display:none">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-</div>
+
+<div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true">
-      </i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Hive远程数据库模式安装"><a href="#Hive远程数据库模式安装" class="headerlink" title="Hive远程数据库模式安装"></a>Hive远程数据库模式安装</h1><h2 id="安装hive的步骤"><a href="#安装hive的步骤" class="headerlink" title="安装hive的步骤:"></a>安装hive的步骤:</h2><h3 id="1、解压安装"><a href="#1、解压安装" class="headerlink" title="1、解压安装"></a>1、解压安装</h3><h3 id="2、修改环境变量"><a href="#2、修改环境变量" class="headerlink" title="2、修改环境变量"></a>2、修改环境变量</h3><pre><code>vi /etc/profile
+export HIVE_HOME=/opt/bigdata/hive-2.3.4
+将bin目录添加到PATH路径中
+</code></pre><h3 id="3、修改配置文件，进入到-opt-bigdata-hive-2-3-4-conf"><a href="#3、修改配置文件，进入到-opt-bigdata-hive-2-3-4-conf" class="headerlink" title="3、修改配置文件，进入到/opt/bigdata/hive-2.3.4/conf"></a>3、修改配置文件，进入到/opt/bigdata/hive-2.3.4/conf</h3><pre><code class="java">//修改文件名称，必须修改，文件名称必须是hive-site.xml
+mv hive-default.xml.template hive-site.xml
+//增加配置：
+进入到文件之后，将文件原有的配置删除，但是保留最后一行，
+从&lt;configuration&gt;&lt;/configuration&gt;，将光标移动到&lt;configuration&gt;这一行，
+在vi的末行模式中输入以下命令
+:.,$-1d
+//增加如下配置信息：
+&lt;property&gt;
+    &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;
+    &lt;value&gt;/user/hive/warehouse&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;
+    &lt;value&gt;jdbc:mysql://node01:3306/hive?createDatabaseIfNotExist=true&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;
+    &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;
+    &lt;value&gt;root&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;
+    &lt;value&gt;123&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+<h3 id="4、添加MySQL的驱动包拷贝到lib目录"><a href="#4、添加MySQL的驱动包拷贝到lib目录" class="headerlink" title="4、添加MySQL的驱动包拷贝到lib目录"></a>4、添加MySQL的驱动包拷贝到lib目录</h3><h3 id="5、执行初始化元数据数据库的步骤"><a href="#5、执行初始化元数据数据库的步骤" class="headerlink" title="5、执行初始化元数据数据库的步骤"></a>5、执行初始化元数据数据库的步骤</h3><pre><code>schematool -dbType mysql -initSchema
+</code></pre><h3 id="6、执行hive启动对应的服务"><a href="#6、执行hive启动对应的服务" class="headerlink" title="6、执行hive启动对应的服务"></a>6、执行hive启动对应的服务</h3><h3 id="7、执行相应的hive-SQL的基本操作"><a href="#7、执行相应的hive-SQL的基本操作" class="headerlink" title="7、执行相应的hive SQL的基本操作"></a>7、执行相应的hive SQL的基本操作</h3><h1 id="hive远程元数据服务模式安装"><a href="#hive远程元数据服务模式安装" class="headerlink" title="hive远程元数据服务模式安装"></a>hive远程元数据服务模式安装</h1><h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤:"></a>安装步骤:</h2><h3 id="1、选择两台虚拟机，node03作为服务端，node04作为客户端"><a href="#1、选择两台虚拟机，node03作为服务端，node04作为客户端" class="headerlink" title="1、选择两台虚拟机，node03作为服务端，node04作为客户端"></a>1、选择两台虚拟机，node03作为服务端，node04作为客户端</h3><h3 id="2、分别在Node03和node04上解压hive的安装包，或者在从node02上远程拷贝hive的安装包到Node03和node04"><a href="#2、分别在Node03和node04上解压hive的安装包，或者在从node02上远程拷贝hive的安装包到Node03和node04" class="headerlink" title="2、分别在Node03和node04上解压hive的安装包，或者在从node02上远程拷贝hive的安装包到Node03和node04"></a>2、分别在Node03和node04上解压hive的安装包，或者在从node02上远程拷贝hive的安装包到Node03和node04</h3><h3 id="3、node03修改hive-site-xml配置："><a href="#3、node03修改hive-site-xml配置：" class="headerlink" title="3、node03修改hive-site.xml配置："></a>3、node03修改hive-site.xml配置：</h3><pre><code>&lt;property&gt;
+    &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;
+    &lt;value&gt;/user/hive_remote/warehouse&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;
+    &lt;value&gt;jdbc:mysql://node01:3306/hive_remote?createDatabaseIfNotExist=true&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;
+    &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;
+    &lt;value&gt;root&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;
+    &lt;value&gt;123&lt;/value&gt;
+&lt;/property&gt;
+</code></pre><h3 id="4、node04修改hive-site-xml配置："><a href="#4、node04修改hive-site-xml配置：" class="headerlink" title="4、node04修改hive-site.xml配置："></a>4、node04修改hive-site.xml配置：</h3><pre><code>&lt;property&gt;
+    &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;
+    &lt;value&gt;/user/hive_remote/warehouse&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;hive.metastore.uris&lt;/name&gt;
+    &lt;value&gt;thrift://node03:9083&lt;/value&gt;
+&lt;/property&gt;
+</code></pre><h3 id="5、在node03服务端执行元数据库的初始化操作，schematool-dbType-mysql-initSchema"><a href="#5、在node03服务端执行元数据库的初始化操作，schematool-dbType-mysql-initSchema" class="headerlink" title="5、在node03服务端执行元数据库的初始化操作，schematool -dbType mysql -initSchema"></a>5、在node03服务端执行元数据库的初始化操作，schematool -dbType mysql -initSchema</h3><h3 id="6、在node03上执行hive-–service-metastore-启动hive的元数据服务，是阻塞式窗口"><a href="#6、在node03上执行hive-–service-metastore-启动hive的元数据服务，是阻塞式窗口" class="headerlink" title="6、在node03上执行hive –service metastore,启动hive的元数据服务，是阻塞式窗口"></a>6、在node03上执行hive –service metastore,启动hive的元数据服务，是阻塞式窗口</h3><h3 id="7、在node04上执行hive，进入到hive的cli窗口"><a href="#7、在node04上执行hive，进入到hive的cli窗口" class="headerlink" title="7、在node04上执行hive，进入到hive的cli窗口"></a>7、在node04上执行hive，进入到hive的cli窗口</h3><h1 id="linux安装mysql"><a href="#linux安装mysql" class="headerlink" title="linux安装mysql"></a>linux安装mysql</h1><h2 id="安装步骤-1"><a href="#安装步骤-1" class="headerlink" title="安装步骤:"></a>安装步骤:</h2><h3 id="1、在linux上使用yum的方式安装软件"><a href="#1、在linux上使用yum的方式安装软件" class="headerlink" title="1、在linux上使用yum的方式安装软件"></a>1、在linux上使用yum的方式安装软件</h3><pre><code>yum install mysql-server -y
+</code></pre><h3 id="2、启动mysql的服务"><a href="#2、启动mysql的服务" class="headerlink" title="2、启动mysql的服务"></a>2、启动mysql的服务</h3><pre><code>service mysqld start
+</code></pre><h3 id="3、将mysql服务设置成开机启动"><a href="#3、将mysql服务设置成开机启动" class="headerlink" title="3、将mysql服务设置成开机启动"></a>3、将mysql服务设置成开机启动</h3><p>（有些同学关闭虚拟机之后，下次重新启动的时候可能忘记开启服务，因此将mysql服务设置完开机启动，不会占用太多的开机时间）</p>
+<pre><code>chkconfig mysqld on
+</code></pre><h3 id="4、进入到mysql的命令行，敲击以下命令"><a href="#4、进入到mysql的命令行，敲击以下命令" class="headerlink" title="4、进入到mysql的命令行，敲击以下命令"></a>4、进入到mysql的命令行，敲击以下命令</h3><pre><code>mysql
+</code></pre><h3 id="5、mysql命令行命令-安装完mysql之后需要修改mysql的登录权限"><a href="#5、mysql命令行命令-安装完mysql之后需要修改mysql的登录权限" class="headerlink" title="5、mysql命令行命令(安装完mysql之后需要修改mysql的登录权限)"></a>5、mysql命令行命令(安装完mysql之后需要修改mysql的登录权限)</h3><pre><code class="sql">--切换数据库
+use mysql
+--查看表
+show tables
+--查看表的数据
+select  host,user,password from user;
+--插入权限数据
+grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;123&#39; with grant option
+--删除本机的用户访问权限（可以执行也可以不执行）
+delete from user where host!=&#39;%&#39;
+--刷新权限或者重启mysqld的服务
+service mysqld restart;--（重启mysql服务）
+flush privileges;--(刷新权限)
+</code></pre>
+<h1 id="linux安装mysql-1"><a href="#linux安装mysql-1" class="headerlink" title="linux安装mysql"></a>linux安装mysql</h1><h2 id="安装步骤-2"><a href="#安装步骤-2" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="1、在linux上使用yum的方式安装软件-1"><a href="#1、在linux上使用yum的方式安装软件-1" class="headerlink" title="1、在linux上使用yum的方式安装软件"></a>1、在linux上使用yum的方式安装软件</h3><pre><code>yum install mysql-server -y
+</code></pre><h3 id="2、启动mysql的服务-1"><a href="#2、启动mysql的服务-1" class="headerlink" title="2、启动mysql的服务"></a>2、启动mysql的服务</h3><pre><code>service mysqld start
+</code></pre><h3 id="3、将mysql服务设置成开机启动（有些同学关闭虚拟机之后，下次重新启动的时候可能忘记开启服务，因此将mysql服务设置完开机启动，不会占用太多的开机时间）"><a href="#3、将mysql服务设置成开机启动（有些同学关闭虚拟机之后，下次重新启动的时候可能忘记开启服务，因此将mysql服务设置完开机启动，不会占用太多的开机时间）" class="headerlink" title="3、将mysql服务设置成开机启动（有些同学关闭虚拟机之后，下次重新启动的时候可能忘记开启服务，因此将mysql服务设置完开机启动，不会占用太多的开机时间）"></a>3、将mysql服务设置成开机启动（有些同学关闭虚拟机之后，下次重新启动的时候可能忘记开启服务，因此将mysql服务设置完开机启动，不会占用太多的开机时间）</h3><pre><code>chkconfig mysqld on
+</code></pre><h3 id="4、进入到mysql的命令行，敲击以下命令-1"><a href="#4、进入到mysql的命令行，敲击以下命令-1" class="headerlink" title="4、进入到mysql的命令行，敲击以下命令"></a>4、进入到mysql的命令行，敲击以下命令</h3><pre><code>mysql
+</code></pre><h3 id="5、mysql命令行命令-安装完mysql之后需要修改mysql的登录权限-1"><a href="#5、mysql命令行命令-安装完mysql之后需要修改mysql的登录权限-1" class="headerlink" title="5、mysql命令行命令(安装完mysql之后需要修改mysql的登录权限)"></a>5、mysql命令行命令(安装完mysql之后需要修改mysql的登录权限)</h3><pre><code class="sql">--切换数据库
+use mysql
+--查看表
+show tables
+--查看表的数据
+select  host,user,password from user;
+--插入权限数据
+grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;123&#39; with grant option
+--删除本机的用户访问权限（可以执行也可以不执行）
+delete from user where host!=&#39;%&#39;
+--刷新权限或者重启mysqld的服务
+service mysqld restart;--（重启mysql服务）
+flush privileges;--(刷新权限)
+</code></pre>
+<h1 id="linux切换yum源"><a href="#linux切换yum源" class="headerlink" title="linux切换yum源"></a>linux切换yum源</h1><h2 id="切换教程"><a href="#切换教程" class="headerlink" title="切换教程"></a>切换教程</h2><h3 id="1、需要提前安装wget命令"><a href="#1、需要提前安装wget命令" class="headerlink" title="1、需要提前安装wget命令"></a>1、需要提前安装wget命令</h3><pre><code>yum install wget -y
+</code></pre><h3 id="2、切换到yum的安装目录"><a href="#2、切换到yum的安装目录" class="headerlink" title="2、切换到yum的安装目录"></a>2、切换到yum的安装目录</h3><pre><code>/etc/yum.repos.d/
+</code></pre><h3 id="3、将所有的已经存在的文件添加备份"><a href="#3、将所有的已经存在的文件添加备份" class="headerlink" title="3、将所有的已经存在的文件添加备份"></a>3、将所有的已经存在的文件添加备份</h3><p>​        1、给文件该名称添加.bak<br>​        2、创建backup目录，将所有的文件移动进去</p>
+<h3 id="4、打开镜像网站-https-mirrors-aliyun-com"><a href="#4、打开镜像网站-https-mirrors-aliyun-com" class="headerlink" title="4、打开镜像网站  https://mirrors.aliyun.com"></a>4、打开镜像网站  <a href="https://mirrors.aliyun.com" target="_blank" rel="noopener">https://mirrors.aliyun.com</a></h3><pre><code>wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-6.repo
+</code></pre><h3 id="5、清除yum的已有缓存"><a href="#5、清除yum的已有缓存" class="headerlink" title="5、清除yum的已有缓存"></a>5、清除yum的已有缓存</h3><pre><code>yum clean all
+</code></pre><h3 id="6、生成yum的缓存"><a href="#6、生成yum的缓存" class="headerlink" title="6、生成yum的缓存"></a>6、生成yum的缓存</h3><pre><code>yum makecache
+</code></pre><p><strong>注意：yum缓存这块说的多一点，yum的安装方式其实也是rpm包的安装方式，但是rpm包在安装的时候需要很多rpm包的依赖，因此需要将rpm包的依赖关系下载到本地，防止每次频繁的向镜像网站发送请求，因此在第6步骤的时候需要将rpm的依赖关系下载到本地，放置到缓存中</strong></p>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/28/flink流式计算学习02/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/-39846256f1b679e9599ac.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-28 12:04</div>
-      <a href="/2020/04/28/flink流式计算学习02/" class="post-title">
-        <h3>flink流式计算学习02</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
         
-            <a href="/tags/flink/">flink<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre half previous">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算算子学习</p>
-        <div class="post-bottom">
-          <a href="/2020/04/28/flink流式计算学习02/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/04/22/flink流式计算学习01/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/2461257211944c4dada90.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-4-22 15:04</div>
-      <a href="/2020/04/22/flink流式计算学习01/" class="post-title">
-        <h3>flink流式计算学习01</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/08/16/FastDFS/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825182044293eb.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                FastDFS</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/flink/">flink<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>流式计算概念及环境搭建</p>
-        <div class="post-bottom">
-          <a href="/2020/04/22/flink流式计算学习01/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/kafka/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/739c5e1e656724e8211f5.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 15:03</div>
-      <a href="/2020/03/24/kafka/" class="post-title">
-        <h3>kafka</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
         
-            <a href="/tags/kafka/">kafka<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre half next">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>kafka简明教程</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/kafka/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/24/docker/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/7783c569da16e2baa2363.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-24 14:03</div>
-      <a href="/2020/03/24/docker/" class="post-title">
-        <h3>docker</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/08/12/Hive优化/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ20190917105603453d4.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Hive优化</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/docker/">docker<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>docker云主机搭建练习</p>
-        <div class="post-bottom">
-          <a href="/2020/03/24/docker/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2019/12/20/Mysql查询优化/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2017/10/05/7fb6f4f53141155bb7d2437a93535269.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-20 16:12</div>
-      <a href="/2019/12/20/Mysql查询优化/" class="post-title">
-        <h3>Mysql查询优化</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql查询优化</p>
-        <div class="post-bottom">
-          <a href="/2019/12/20/Mysql查询优化/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Mysql索引总结/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/60a50cf572dc00fe92059431a756bd65.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 16:12</div>
-      <a href="/2019/12/19/Mysql索引总结/" class="post-title">
-        <h3>Mysql索引总结</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/mysql/">mysql<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>mysql索引知识点</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Mysql索引总结/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/12/19/Http协议学习/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/130ef0a857389caae79d71ad7b3e91ce.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-12-19 11:12</div>
-      <a href="/2019/12/19/Http协议学习/" class="post-title">
-        <h3>Http协议学习</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>http通讯协议简介</p>
-        <div class="post-bottom">
-          <a href="/2019/12/19/Http协议学习/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/11/12/JDBC简明教程/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/11/12/QQ201911121757279340b.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-11-12 17:11</div>
-      <a href="/2019/11/12/JDBC简明教程/" class="post-title">
-        <h3>JDBC简明教程</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>JDBC简明教程</p>
-        <div class="post-bottom">
-          <a href="/2019/11/12/JDBC简明教程/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识04/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171703253a291.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识04/" class="post-title">
-        <h3>Scala初识04</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>函数式编程太坑了</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识04/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/10/17/Scala初识03/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171702360e62f.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-10-17 16:10</div>
-      <a href="/2019/10/17/Scala初识03/" class="post-title">
-        <h3>Scala初识03</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/scala/">scala<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>似乎发现了些技巧</p>
-        <div class="post-bottom">
-          <a href="/2019/10/17/Scala初识03/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-right"></i></a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/2/" class>Previous</a></div>
-  
-</div>
+
 
     </div>    
     <div class="ins-search">
